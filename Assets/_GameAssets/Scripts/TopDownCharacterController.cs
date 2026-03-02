@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class TopDownCharacterController : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float m_moveSpeed = 5f;
+    [SerializeField]private CharacterController m_characterController;
+    [SerializeField] private Animator m_animator;
 
-    private CharacterController _characterController;
-
-    private void Awake()
+    private void Reset()
     {
-        _characterController = GetComponent<CharacterController>();
+        m_characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -23,15 +23,12 @@ public class TopDownCharacterController : MonoBehaviour
         float horizontal = -UltimateJoystick.GetHorizontalAxis("Movement");
         float vertical = -UltimateJoystick.GetVerticalAxis("Movement");
 
-        Vector3 moveDirection = new Vector3(horizontal, 0f, vertical);
-
-        // Clamp magnitude so diagonal movement isn't faster
-        if (moveDirection.magnitude > 1f)
-            moveDirection.Normalize();
-
-        _characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-
-        // Rotate character to face movement direction
+        Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        
+        m_characterController.Move(moveDirection * m_moveSpeed * Time.deltaTime);
+        
+        m_animator.SetFloat("Speed", moveDirection.magnitude * m_moveSpeed);
+        
         Vector3 lookDirection = new Vector3(horizontal, 0f, vertical);
         if (lookDirection != Vector3.zero)
         {
