@@ -1,14 +1,20 @@
+using MyBox;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class TopDownCharacterController : MonoBehaviour
-{
-    [SerializeField] private float m_moveSpeed = 5f;
-    [SerializeField]private CharacterController m_characterController;
+{ 
+    [Header("references")]
+    [SerializeField] private CharacterController m_characterController;
     [SerializeField] private Animator m_animator;
+    [SerializeField] private SpriteRenderer m_movementSpite;
+    
+    [Header("Settings")]
+    [SerializeField] private float m_moveSpeed = 5f;
 
-    private void Reset()
+    [ButtonMethod]
+    private void FindReferences()
     {
         m_characterController = GetComponent<CharacterController>();
     }
@@ -33,6 +39,7 @@ public class TopDownCharacterController : MonoBehaviour
         if (lookDirection != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(lookDirection);
+            m_movementSpite.transform.position = transform.position + (lookDirection * 1.5f);
         }
     }
 }
