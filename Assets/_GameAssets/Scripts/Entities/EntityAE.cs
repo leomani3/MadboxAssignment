@@ -11,7 +11,7 @@ public class EntityAE : MonoBehaviour
 
     public void OnAttackPerformed()
     {
-        if (m_entity.TryGetModule(out EntityAttackModule attackModule))
+        if (m_entity.TryGetModule(out PlayerAttackModule attackModule))
         {
             attackModule.OnAttackPerformed();
         }

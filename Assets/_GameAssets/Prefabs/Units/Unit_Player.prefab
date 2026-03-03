@@ -273,6 +273,10 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 3266805001127718918, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 119
+      objectReference: {fileID: 0}
     - target: {fileID: 4582170290174689488, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: enemyTeam
       value: 1
@@ -353,6 +357,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 10
   attackSpeed: 1
+  attackRange: 99
+  m_currentTarget: {fileID: 0}
   m_animator: {fileID: 3007664624361777730}
   m_baseAnimationLength: 1.0333334
 --- !u!114 &1110179290804976107

@@ -62,6 +62,16 @@ public class Entity : MonoBehaviour
         module = null;
         return false;
     }
+
+    public bool IsEnemy(Entity entity)
+    {
+        if (TryGetModule(out EntityTeamModule myTeamModule) && entity.TryGetModule(out EntityTeamModule otherTeamModule))
+        {
+            return otherTeamModule.EnemyTeam == myTeamModule.Team;
+        }
+        
+        return false;
+    }
     
     public bool HasModule<T>() where T : EntityModule => m_modules.ContainsKey(typeof(T));
 }

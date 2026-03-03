@@ -20,7 +20,6 @@ public class EntityManager : Singleton<EntityManager>
 
         if (!m_entities.Add(entity))
         {
-            Debug.LogWarning($"[EntityManager] Entity '{entity.name}' ({entity.EntityData.displayedName}) is already registered.");
             return;
         }
 
@@ -35,8 +34,6 @@ public class EntityManager : Singleton<EntityManager>
                 m_enemies.Add(entity);
             }
         }
-        
-        Debug.Log($"[EntityManager] Registered '{entity.name}' | id={entity.EntityData.displayedName} | total={m_entities.Count}");
     }
 
     internal void Unregister(Entity entity)
@@ -45,7 +42,26 @@ public class EntityManager : Singleton<EntityManager>
 
         if (!m_entities.Remove(entity))
             return;
-        
-        Debug.Log($"[EntityManager] Unregistered '{entity.name}' | id={entity.EntityData.displayedName} | total={m_entities.Count}");
+    }
+
+    public Entity FindClosestEnemy(Entity sourceEntity)
+    {
+        Entity closest = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (Entity entity in m_entities)
+        {
+            if (entity != sourceEntity && entity.IsEnemy(sourceEntity))
+            {
+                float distance = Vector3.Distance(sourceEntity.transform.position, entity.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closest = entity;
+                }
+            }
+        }
+
+        return closest;
     }
 }

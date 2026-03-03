@@ -14,7 +14,7 @@ public class PlayerMovementModule : EntityMovementModule
 
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if (Owner.TryGetModule(out EntityAttackModule attackModule))
+        if (Owner.TryGetModule(out PlayerAttackModule attackModule))
         {
             attackModule.SetCanAttack(moveDirection == Vector3.zero);
         }

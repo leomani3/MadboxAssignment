@@ -28,6 +28,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3266805001127718918, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266805001127718918, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4582170290174689488, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: team
       value: 1
