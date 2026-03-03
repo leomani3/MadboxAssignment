@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
-public class TopDownCharacterController : MonoBehaviour
+public class TopDownCharacterController : EntityModule
 { 
     [Header("references")]
     [SerializeField] private CharacterController m_characterController;
@@ -12,12 +12,6 @@ public class TopDownCharacterController : MonoBehaviour
     
     [Header("Settings")]
     [SerializeField] private float m_moveSpeed = 5f;
-
-    [ButtonMethod]
-    private void FindReferences()
-    {
-        m_characterController = GetComponent<CharacterController>();
-    }
 
     private void Update()
     {
@@ -34,6 +28,11 @@ public class TopDownCharacterController : MonoBehaviour
         m_characterController.Move(moveDirection * m_moveSpeed * Time.deltaTime);
         
         m_animator.SetFloat("Speed", moveDirection.magnitude * m_moveSpeed);
+
+        if (Owner.TryGetModule(out EntityAttackModule attackModule))
+        {
+            attackModule.SetCanAttack(moveDirection == Vector3.zero);
+        }
         
         Vector3 lookDirection = new Vector3(horizontal, 0f, vertical);
         if (lookDirection != Vector3.zero)
