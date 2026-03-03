@@ -26,8 +26,8 @@ public class TopDownCharacterController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontal = -UltimateJoystick.GetHorizontalAxis("Movement");
-        float vertical = -UltimateJoystick.GetVerticalAxis("Movement");
+        float horizontal = UltimateJoystick.GetHorizontalAxis("Movement");
+        float vertical = UltimateJoystick.GetVerticalAxis("Movement");
 
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
         

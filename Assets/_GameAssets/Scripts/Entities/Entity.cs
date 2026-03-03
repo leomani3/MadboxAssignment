@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    [Header("Entity Info")]
-    [SerializeField] private string entityId;
-
-    public string EntityId => entityId;
+    [SerializeField] private EntityData entityData;
+    
     private Dictionary<Type, EntityModule> m_modules = new();
+    
+    public EntityData EntityData => entityData;
     
     protected virtual void Awake()
     {
-        if (string.IsNullOrEmpty(entityId))
-            entityId = Guid.NewGuid().ToString();
-
         RegisterModules();
     }
 

@@ -12,7 +12,7 @@ public class EntityHealthModule : EntityModule
     public event Action<float, float> OnDamageTaken;
     public event Action<float, float> OnHealed;
     
-    public event Action<Entity> OnDeath;
+    public event Action OnDeath;
     
     private float m_currentHealth;
     private bool m_isDead;
@@ -106,7 +106,7 @@ public class EntityHealthModule : EntityModule
         m_isDead = true;
 
         Debug.Log($"[EntityHealthModule] '{Owner.name}' has died.");
-        OnDeath?.Invoke(Owner);
+        OnDeath?.Invoke();
         
         Destroy(Owner.gameObject);
     }
