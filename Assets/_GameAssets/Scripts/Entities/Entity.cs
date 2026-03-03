@@ -5,10 +5,13 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [SerializeField] private EntityData entityData;
+    [SerializeField] private Collider m_collider;
+    [SerializeField] private GameObject m_targetedIndicatorObject;
     
     private Dictionary<Type, EntityModule> m_modules = new Dictionary<Type, EntityModule>();
     
     public EntityData EntityData => entityData;
+    public Collider Collider => m_collider;
     
     protected virtual void Awake()
     {
@@ -24,7 +27,13 @@ public class Entity : MonoBehaviour
     {
         EntityManager.Instance?.Unregister(this);
     }
-    
+
+    public void SetTargeted(bool targeted)
+    {
+        if (m_targetedIndicatorObject != null)
+            m_targetedIndicatorObject.SetActive(targeted);
+    }
+
     private void RegisterModules()
     {
         var modules = GetComponents<EntityModule>();

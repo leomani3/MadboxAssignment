@@ -2,7 +2,7 @@ using Lean.Pool;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Projectile : MonoBehaviour, IPoolable
+public class Projectile : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]private Rigidbody rb;
@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour, IPoolable
     [SerializeField] private LayerMask collisionMask = ~0;
     
     private float spawnTime;
+    private LeanProjectilePool m_originPool;
+    private float m_damage;
 
     private void OnDisable()
     {
@@ -39,64 +41,49 @@ public class Projectile : MonoBehaviour, IPoolable
         if ((collisionMask & (1 << collision.gameObject.layer)) == 0)
             return;
 
+        if (EntityManager.Instance.EntitiesByCollider.TryGetValue(collision.collider, out Entity entity))
+        {
+            if (entity.TryGetModule(out EntityHealthModule healthModule))
+            {
+                healthModule.TakeDamage(m_damage);
+            }
+        }
+
         ContactPoint contact = collision.GetContact(0);
-        SpawnImpactVFX(contact.point, contact.normal);
+        SpawnImpactVFX(contact.point);
         Despawn();
     }
     
-    public static Projectile Launch(ProjectilePoolRef poolRef, Vector3 spawnPosition, Quaternion spawnRotation)
+    public void Launch(LeanProjectilePool originPool, Vector3 targetPos, float damage)
     {
-        if (poolRef == null || poolRef.pool == null)
-        {
-            Debug.LogWarning("[Projectile] Launch called with a null pool reference.");
-            return null;
-        }
-
-        return LeanPool.Spawn(poolRef.pool.Prefab, spawnPosition, spawnRotation)
-                       .GetComponent<Projectile>();
-    }
-
-    private void SpawnMuzzleFlash()
-    {
-        // if (muzzleFlashPoolRef == null || muzzleFlashPoolRef.pool == null)
-        //     return;
-        //
-        // muzzleFlashPoolRef.pool.Spawn(transform.position, transform.rotation, muzzleFlashPoolRef.pool.transform);
-    }
-
-    private void SpawnImpactVFX(Vector3 position, Vector3 normal)
-    {
-        if (impactPoolRef == null || impactPoolRef.pool == null)
-            return;
-
-        Quaternion rotation = Quaternion.LookRotation(normal);
-        ParticleSystem vfx = LeanPool.Spawn(
-            impactPoolRef.pool.Prefab,
-            position,
-            rotation);
-
-        if (vfx != null)
-        {
-            vfx.Play();
-            float duration = vfx.main.duration + vfx.main.startLifetime.constantMax;
-        }
-    }
-
-    private void Despawn()
-    {
-        LeanPool.Despawn(this);
-    }
-
-    public void OnSpawn()
-    {
+        m_originPool = originPool;
         spawnTime = Time.time;
-        rb.velocity = transform.forward * speed;
+        rb.velocity = (targetPos - transform.position).normalized * speed;
+        transform.rotation = Quaternion.LookRotation(rb.velocity);
+
+        m_damage = damage;
 
         SpawnMuzzleFlash();
     }
 
-    public void OnDespawn()
+    private void SpawnMuzzleFlash()
     {
-        throw new System.NotImplementedException();
+        if (muzzleFlashPoolRef == null || muzzleFlashPoolRef.pool == null)
+            return;
+        
+        muzzleFlashPoolRef.pool.Spawn(transform.position, transform.rotation, muzzleFlashPoolRef.pool.transform);
+    }
+
+    private void SpawnImpactVFX(Vector3 position)
+    {
+        if (impactPoolRef == null || impactPoolRef.pool == null)
+            return;
+        
+        impactPoolRef.pool.Spawn(position, transform.rotation, impactPoolRef.pool.transform);
+    }
+
+    private void Despawn()
+    {
+        m_originPool.Despawn(this);
     }
 }

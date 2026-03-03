@@ -1,16 +1,17 @@
-using System;
 using System.Collections.Generic;
 using MyBox;
-using UnityEditor.Build.Pipeline.Utilities;
 using UnityEngine;
 
 public class EntityManager : Singleton<EntityManager>
 {
-    private Entity m_player = new();
-    private HashSet<Entity> m_enemies = new();
-    private HashSet<Entity> m_entities = new();
+    private Entity m_player;
+    private HashSet<Entity> m_enemies = new HashSet<Entity>();
+    private HashSet<Entity> m_entities = new HashSet<Entity>();
+    
+    private Dictionary<Collider, Entity> m_entitiesByColliders = new Dictionary<Collider, Entity>();
     
     public HashSet<Entity> AllEntities => m_entities;
+    public Dictionary<Collider, Entity> EntitiesByCollider => m_entitiesByColliders;
     public HashSet<Entity> Enemies => m_enemies;
     public Entity Player => m_player;
     
@@ -21,6 +22,11 @@ public class EntityManager : Singleton<EntityManager>
         if (!m_entities.Add(entity))
         {
             return;
+        }
+
+        if (!m_entitiesByColliders.ContainsKey(entity.Collider))
+        {
+            m_entitiesByColliders.Add(entity.Collider, entity);
         }
 
         if (entity.TryGetModule(out EntityTeamModule teamModule))
@@ -42,6 +48,11 @@ public class EntityManager : Singleton<EntityManager>
 
         if (!m_entities.Remove(entity))
             return;
+        
+        if (m_entitiesByColliders.ContainsKey(entity.Collider))
+        {
+            m_entitiesByColliders.Remove(entity.Collider);
+        }
     }
 
     public Entity FindClosestEnemy(Entity sourceEntity)

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recycle: 1
-  prefab: {fileID: 3305186517166574312, guid: cf79ebfcc16eca14dad94c1f086d0b49, type: 3}
+  prefab: {fileID: 19873388, guid: 185035e4680c4b344b62bf5ace4674b8, type: 3}
   notification: 0
   strategy: 0
   preload: 5
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recycle: 1
-  prefab: {fileID: 69906001918393884, guid: be3c224c314868c4ca06bc99459de3e3, type: 3}
+  prefab: {fileID: 19824572, guid: dddc7b1930f161e4ebdc27a4fc68bcc6, type: 3}
   notification: 0
   strategy: 0
   preload: 5

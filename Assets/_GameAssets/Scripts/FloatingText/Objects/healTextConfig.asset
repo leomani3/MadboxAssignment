@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingTextConfig
   color: {r: 0, g: 1, b: 0.1515646, a: 1}
   font: {fileID: 11400000, guid: 715855d65a80d4bd1afb15a96bcf5a78, type: 2}
-  fontSize: 35
+  fontSize: 40
   spawnDuration: 0.3
   enableScaleIn: 1
   scaleInEase: 18

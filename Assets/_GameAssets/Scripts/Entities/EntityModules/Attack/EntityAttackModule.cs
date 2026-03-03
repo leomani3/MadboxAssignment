@@ -9,7 +9,7 @@ public class EntityAttackModule : EntityModule
     [SerializeField] protected float attackRange = 1f;
 
     [SerializeField, ReadOnly] protected Entity m_currentTarget;
-    
+
     protected bool m_canAttack;
     protected float m_attackCooldownTimer;
 
@@ -18,7 +18,7 @@ public class EntityAttackModule : EntityModule
 
     protected override void OnInitialize()
     {
-        m_currentTarget = null;
+        SetTarget(null);
         m_canAttack = true;
         m_attackCooldownTimer = 0f;
     }
@@ -29,6 +29,11 @@ public class EntityAttackModule : EntityModule
         FindTarget();
     }
 
+    public virtual void SetCanAttack(bool _canAttack)
+    {
+        m_canAttack = _canAttack;
+    }
+
     private void TickCooldown()
     {
         if (m_attackCooldownTimer > 0f)
@@ -37,16 +42,24 @@ public class EntityAttackModule : EntityModule
 
     private void FindTarget()
     {
-        // Drop stale targets that have left attack range.
         if (m_currentTarget != null && !IsInRange(m_currentTarget))
-            m_currentTarget = null;
-
-        if (m_currentTarget != null) return;
+            SetTarget(null);
 
         Entity closest = EntityManager.Instance.FindClosestEnemy(Owner);
 
         if (closest != null && IsInRange(closest))
-            m_currentTarget = closest;
+            SetTarget(closest);
+    }
+    
+    protected void SetTarget(Entity target)
+    {
+        if (m_currentTarget == target) return;
+        OnTargetChanged(m_currentTarget, target);
+        m_currentTarget = target;
+    }
+    
+    protected virtual void OnTargetChanged(Entity oldTarget, Entity newTarget)
+    {
     }
 
     protected bool IsInRange(Entity target)

@@ -12,7 +12,7 @@ public abstract class EntityModule : MonoBehaviour
             Debug.LogWarning($"[EntityModule] {GetType().Name} on '{name}' is already initialized.");
             return;
         }
-
+        
         Owner = owner;
         IsInitialized = true;
         OnInitialize();

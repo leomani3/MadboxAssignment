@@ -1,3 +1,4 @@
+using System;
 using MyBox;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,31 +15,75 @@ public class PlayerAttackModule : EntityAttackModule
     [SerializeField] private ProjectilePoolRef m_projectilePoolRef;
     [SerializeField] private Transform m_projectileSpawnPoint;
 
-    public void SetCanAttack(bool _canAttack)
-    {
-        m_canAttack = _canAttack;
-
-        if (!m_canAttack)
-            CancelAttack();
-    }
-
     protected override void OnInitialize()
     {
         base.OnInitialize();
         UpdateAnimatorSpeed();
+
+        if (Owner.TryGetModule(out PlayerMovementModule playerMovementModule))
+        {
+            playerMovementModule.OnStartedMoving += () => SetCanAttack(false);
+            playerMovementModule.OnStoppedMoving += () => SetCanAttack(true);
+        }
+    }
+
+    private void Start()
+    {
+        if (Owner.TryGetModule(out PlayerMovementModule playerMovementModule))
+        {
+            playerMovementModule.OnStartedMoving += () => SetCanAttack(false);
+            playerMovementModule.OnStoppedMoving += () => SetCanAttack(true);
+        }
+    }
+
+    public override void SetCanAttack(bool _canAttack)
+    {
+        base.SetCanAttack(_canAttack);
+        
+        if (!m_canAttack)
+            CancelAttack();
     }
 
     protected override void Update()
     {
-        base.Update();     // ticks cooldown + finds target
-        TryAttack();
+        base.Update(); 
+        
+        if (!m_canAttack || !IsAttackReady || m_currentTarget == null)
+            return;
+
+        StartAttackAnimation();
+    }
+    
+    protected override void OnTargetChanged(Entity oldTarget, Entity newTarget)
+    {
+        base.OnTargetChanged(oldTarget, newTarget);
+        if (oldTarget != null)
+        {
+            oldTarget.SetTargeted(false);
+        }
+
+        if (newTarget != null)
+        {
+            newTarget.SetTargeted(true);
+        }
     }
 
     // Called by the base when conditions are met (cooldown elapsed, target in range, etc.)
     protected override void PerformAttack()
     {
-        base.PerformAttack();   // stamps the cooldown timer
-        StartAttackAnimation();
+        base.PerformAttack();
+        if (!m_canAttack)
+        {
+            CancelAttack();
+            return;
+        }
+        if (m_currentTarget != null)
+        {
+            Projectile _spawnedProjectile = m_projectilePoolRef.pool.Spawn(m_projectileSpawnPoint.position, m_projectileSpawnPoint.rotation);
+            _spawnedProjectile.Launch(m_projectilePoolRef.pool, m_currentTarget.transform.position, attackDamage); 
+        }
+        
+        m_animator?.SetBool("Attack", false);
     }
 
     private void StartAttackAnimation()
@@ -53,25 +98,13 @@ public class PlayerAttackModule : EntityAttackModule
     private void CancelAttack()
     {
         m_animator?.SetBool("Attack", false);
-        m_currentTarget = null;
+        SetTarget(null);
     }
 
     // Called by an Animation Event at the hit frame of the attack clip.
     public void OnAttackPerformed()
-    {
-        if (!m_canAttack)
-        {
-            CancelAttack();
-            return;
-        }
-        
-        Projectile.Launch(m_projectilePoolRef, m_projectileSpawnPoint.position, m_projectileSpawnPoint.rotation);
-        
-        m_animator?.SetBool("Attack", false);
-
-        if (m_currentTarget == null) return;
-
-        DealDamage(m_currentTarget, attackDamage);
+    {   
+        TryAttack();
     }
 
     // Scales the animator so the Attack clip always plays in exactly (1 / attackSpeed) seconds.

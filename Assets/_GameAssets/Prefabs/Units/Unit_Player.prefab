@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackSpeed: 2
+  attackSpeed: 1
   attackRange: 99
   m_currentTarget: {fileID: 0}
   m_animator: {fileID: 3007664624361777730}

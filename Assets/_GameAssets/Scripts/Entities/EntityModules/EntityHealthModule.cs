@@ -37,7 +37,7 @@ public class EntityHealthModule : EntityModule
         m_currentHealth = Mathf.Max(0f, m_currentHealth - amount);
         float delta = m_currentHealth - previous;
         
-        FloatingTextManager.Instance.SpawnUIText(CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(3)), delta.ToString(), GameConfig.Instance.m_normalDamageTextConfig);
+        FloatingTextManager.Instance.SpawnUIText(CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(4)), delta.ToString(), GameConfig.Instance.m_normalDamageTextConfig);
 
         OnDamageTaken?.Invoke(amount, m_currentHealth);
         OnHealthChanged?.Invoke(m_currentHealth, maxHealth, delta);
