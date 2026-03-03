@@ -20,8 +20,9 @@ public class GameConfig : ScriptableObject
         return _instance;
     }
 
-
     //-------------------------------------
     
-
+    public FloatingTextConfig m_normalDamageTextConfig;
+    public FloatingTextConfig m_critDamageTextConfig;
+    public FloatingTextConfig m_healTextConfig;
 }

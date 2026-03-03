@@ -9,20 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49e636d1db3887f4083b6e440cd10f73, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3ceacd005647240aa4ca8002942712, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  debuggingSettings:
-    developmentBuild: 0
-  cheatSettings:
-    cheatStats: []
-    preventSave: 0
-    startResetData: 1
-    noFTUE: 0
-    noCurrencyRequired: 1
-    noMenu: 0
-  gameSettings:
-    isDemo: 0
-    resetedCurrency: []
-    resetCurrenciesNeeded: []
-    delayBeforeCanValidateOnClick: 0.2
+  m_normalDamageTextConfig: {fileID: 11400000, guid: cdb3af6339353804b9d16b0b6b4fe187, type: 2}
+  m_critDamageTextConfig: {fileID: 11400000, guid: 3096b843926128d419502c50b82fb794, type: 2}
+  m_healTextConfig: {fileID: 11400000, guid: 5957f6ee33c4d754981d6d659aa91bc0, type: 2}

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6256840304806217354}
   - component: {fileID: 3266805001127718918}
+  - component: {fileID: 1665280611800076260}
+  - component: {fileID: 5541402139307812785}
   m_Layer: 6
   m_Name: Unit_Base
   m_TagString: Untagged
@@ -60,6 +62,32 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.125, z: 0}
+--- !u!114 &1665280611800076260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd2cf44876422642b18c04e054ed882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityId: 
+--- !u!114 &5541402139307812785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde38c5ddca8e24c9c53f251bd72e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &4660645131630181294
 GameObject:
   m_ObjectHideFlags: 0

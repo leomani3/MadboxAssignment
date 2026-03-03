@@ -1,13 +1,12 @@
 using System;
+using MyBox;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class EntityHealthModule : EntityModule
 {
     [Header("Health Settings")]
     [SerializeField, Min(1f)] private float maxHealth = 100f;
-    [SerializeField] private float startingHealth = -1f;   // -1 → use maxHealth
-    [SerializeField] private bool destroyOnDeath = false;
-    [SerializeField, Min(0f)] private float destroyDelay = 0f;
     
     public event Action<float, float, float> OnHealthChanged;
     public event Action<float, float> OnDamageTaken;
@@ -25,17 +24,20 @@ public class EntityHealthModule : EntityModule
     
     protected override void OnInitialize()
     {
-        m_currentHealth = startingHealth < 0f ? maxHealth : Mathf.Clamp(startingHealth, 0f, maxHealth);
+        m_currentHealth = maxHealth;
         m_isDead = false;
     }
     
+    [Button]
     public void TakeDamage(float amount)
     {
         if (m_isDead || amount <= 0f) return;
 
         float previous = m_currentHealth;
         m_currentHealth = Mathf.Max(0f, m_currentHealth - amount);
-        float delta = m_currentHealth - previous;   // always negative here
+        float delta = m_currentHealth - previous;
+        
+        FloatingTextManager.Instance.SpawnUIText(CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(3)), delta.ToString(), GameConfig.Instance.m_normalDamageTextConfig);
 
         OnDamageTaken?.Invoke(amount, m_currentHealth);
         OnHealthChanged?.Invoke(m_currentHealth, maxHealth, delta);
@@ -44,6 +46,7 @@ public class EntityHealthModule : EntityModule
             Die();
     }
     
+    [Button]
     public void Heal(float amount)
     {
         if (m_isDead || amount <= 0f) return;
@@ -104,8 +107,7 @@ public class EntityHealthModule : EntityModule
 
         Debug.Log($"[EntityHealthModule] '{Owner.name}' has died.");
         OnDeath?.Invoke(Owner);
-
-        if (destroyOnDeath)
-            Destroy(Owner.gameObject, destroyDelay);
+        
+        Destroy(Owner.gameObject);
     }
 }

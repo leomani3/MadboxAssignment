@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d735201b0be224da6f2747493e9f07, type: 3}
+  m_Script: {fileID: 11500000, guid: f5332ce2b9b497544b589eee335da28e, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
+  isDirty: 0
+  currencies:
+    keys: 
+    values: []
