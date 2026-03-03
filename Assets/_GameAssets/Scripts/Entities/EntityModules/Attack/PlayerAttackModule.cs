@@ -11,6 +11,8 @@ public class PlayerAttackModule : EntityAttackModule
     [Header("Animation")]
     [SerializeField] private Animator m_animator;
     [SerializeField, ReadOnly] private float m_baseAnimationLength;
+    [SerializeField] private ProjectilePoolRef m_projectilePoolRef;
+    [SerializeField] private Transform m_projectileSpawnPoint;
 
     public void SetCanAttack(bool _canAttack)
     {
@@ -62,7 +64,9 @@ public class PlayerAttackModule : EntityAttackModule
             CancelAttack();
             return;
         }
-
+        
+        Projectile.Launch(m_projectilePoolRef, m_projectileSpawnPoint.position, m_projectileSpawnPoint.rotation);
+        
         m_animator?.SetBool("Attack", false);
 
         if (m_currentTarget == null) return;

@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] private EntityData entityData;
     
-    private Dictionary<Type, EntityModule> m_modules = new();
+    private Dictionary<Type, EntityModule> m_modules = new Dictionary<Type, EntityModule>();
     
     public EntityData EntityData => entityData;
     
