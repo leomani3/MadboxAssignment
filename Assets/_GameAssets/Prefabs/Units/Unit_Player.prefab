@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3805066836578829156}
   - component: {fileID: 3671954507909697793}
   m_Layer: 6
-  m_Name: MovementSprint
+  m_Name: MovementSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,6 +269,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3266805001127718918, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582170290174689488, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: enemyTeam
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6256840304806217354, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -321,32 +329,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3166141458545963254, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1341664987683375419}
+      addedObject: {fileID: 1526598674786537851}
     - targetCorrespondingSourceObject: {fileID: 3166141458545963254, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1526598674786537851}
+      addedObject: {fileID: 1110179290804976107}
   m_SourcePrefab: {fileID: 100100000, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
 --- !u!1 &242236124617413165 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3166141458545963254, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
   m_PrefabInstance: {fileID: 2930995193699263195}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1341664987683375419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242236124617413165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d1b1e1ebf390d4eb881e4c6f11a5f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_characterController: {fileID: 430930829456020189}
-  m_animator: {fileID: 3007664624361777730}
-  m_movementSpite: {fileID: 3671954507909697793}
-  m_moveSpeed: 8
 --- !u!114 &1526598674786537851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +355,22 @@ MonoBehaviour:
   attackSpeed: 1
   m_animator: {fileID: 3007664624361777730}
   m_baseAnimationLength: 1.0333334
+--- !u!114 &1110179290804976107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242236124617413165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef987cd91bda9f240a45c324a5ea20f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_characterController: {fileID: 430930829456020189}
+  m_animator: {fileID: 3007664624361777730}
+  m_moveSpeed: 8
+  m_movementSpite: {fileID: 3671954507909697793}
 --- !u!143 &430930829456020189 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 3266805001127718918, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}

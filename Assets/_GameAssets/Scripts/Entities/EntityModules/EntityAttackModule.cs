@@ -1,3 +1,4 @@
+using MyBox;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -109,7 +110,7 @@ public class EntityAttackModule : EntityModule
 
         if (m_currentTarget != null)
         {
-            transform.LookAt(m_currentTarget.transform);
+            transform.LookAt(m_currentTarget.transform.position.SetY(transform.position.y));
             StartAttackAnimation();
         }
     }
