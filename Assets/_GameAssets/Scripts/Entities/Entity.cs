@@ -9,6 +9,20 @@ public class Entity : MonoBehaviour
     [SerializeField] private GameObject m_targetedIndicatorObject;
     
     private Dictionary<Type, EntityModule> m_modules = new Dictionary<Type, EntityModule>();
+    private bool m_canBeTargeted;
+    
+    public bool CanBeTargeted
+    {
+        get => m_canBeTargeted;
+        set
+        {
+            m_canBeTargeted = value;
+            if (!m_canBeTargeted)
+            {
+                SetTargeted(false);
+            }
+        }
+    }
     
     public EntityData EntityData => entityData;
     public Collider Collider => m_collider;
@@ -18,14 +32,9 @@ public class Entity : MonoBehaviour
         RegisterModules();
     }
 
-    protected virtual void OnEnable()
+    private void Start()
     {
         EntityManager.Instance?.Register(this);
-    }
-
-    protected virtual void OnDisable()
-    {
-        EntityManager.Instance?.Unregister(this);
     }
 
     public void SetTargeted(bool targeted)
@@ -40,14 +49,13 @@ public class Entity : MonoBehaviour
         foreach (var module in modules)
         {
             var type = module.GetType();
-            if (m_modules.TryAdd(type, module))
+            while (type != null && typeof(EntityModule).IsAssignableFrom(type))
             {
-                module.Initialize(this);
+                m_modules.TryAdd(type, module);
+                type = type.BaseType;
             }
-            else
-            {
-                Debug.LogWarning($"[Entity] Duplicate module of type {type.Name} on '{name}'. Only the first one will be used.");
-            }
+        
+            module.Initialize(this);
         }
     }
     

@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5541402139307812785, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: healthBarPoolRef
+      value: 
+      objectReference: {fileID: 11400000, guid: f83878bc852836f4eb97d73a5b231029, type: 2}
     - target: {fileID: 6042338208683446940, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: m_IsActive
       value: 1

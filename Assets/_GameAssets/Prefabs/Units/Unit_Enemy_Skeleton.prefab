@@ -169,19 +169,43 @@ PrefabInstance:
       value: Skeleton_Minion
       objectReference: {fileID: 0}
     - target: {fileID: 8231533210879514318, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231533210879514318, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3136c0fdb3c41d04a902a34c92cad90f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6143643343095581565, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5885178391536526454}
   m_SourcePrefab: {fileID: 100100000, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
 --- !u!4 &30215934810086334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6040585352637831353, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
   m_PrefabInstance: {fileID: 6034578740146504455}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &503763748438755450 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6143643343095581565, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}
+  m_PrefabInstance: {fileID: 6034578740146504455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5885178391536526454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503763748438755450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41d0e8534e401a46b2fd72268d61fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &2414886746346182089 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8231533210879514318, guid: ec3da66061dcb8548b506fe5bd8ed024, type: 3}

@@ -15,11 +15,20 @@ public class EntityMovementModule : EntityModule
     [SerializeField] protected float m_moveSpeed = 5f;
     
     private bool m_isMoving;
+    private bool m_canMove = true;
 
     public bool IsMoving => m_isMoving;
 
+    public bool CanMove
+    {
+        get => m_canMove;
+        set => m_canMove = value;
+    }
+
     private void Update()
     {
+        if(!m_canMove) return;
+        
         HandleMovement();
     }
 

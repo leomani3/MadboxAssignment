@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6904350f66cdefa40b3a65564f055c33
+guid: 19f8d8bc85449e24db65e17bd7d6a180
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing Draw Arrow
+      name: Standing Aim Recoil
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -251,30 +251,30 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: rogue_hooded@Standing Draw Arrow(Clone)
+    - name: rogue_hooded@Standing Aim Recoil(Clone)
       parentName: 
-      position: {x: 0.05830256, y: -0.10402902, z: -0.01657283}
-      rotation: {x: 0.025805738, y: -0.51367223, z: 0.033599447, w: 0.8569399}
+      position: {x: 0.05214641, y: -0.0893659, z: -0.012649653}
+      rotation: {x: 0.019027734, y: -0.71591926, z: 0.011910616, w: 0.6978221}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: rogue_hooded@Standing Draw Arrow(Clone)
+      parentName: rogue_hooded@Standing Aim Recoil(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: hips
       parentName: root
-      position: {x: -0.0062941555, y: 0.44810283, z: 0.010914948}
-      rotation: {x: -0.09521757, y: 0.5035633, z: 0.05161332, w: 0.8571428}
+      position: {x: 0.0002287284, y: 0.44597772, z: 0.023691501}
+      rotation: {x: -0.02084579, y: 0.72362024, z: 0.045561407, w: 0.6883774}
       scale: {x: 1, y: 1, z: 1}
     - name: spine
       parentName: hips
       position: {x: -0, y: 0.192, z: 0}
-      rotation: {x: 0.077980585, y: 0.0044720755, z: -0.0284789, w: 0.99653804}
+      rotation: {x: 0.032113247, y: -0.0074560773, z: -0.029633977, w: 0.999017}
       scale: {x: 1, y: 1, z: 1}
     - name: chest
       parentName: spine
       position: {x: -0, y: 0.375, z: 0}
-      rotation: {x: 0.15532926, y: 0.012079257, z: -0.05625115, w: 0.98618597}
+      rotation: {x: 0.064282686, y: -0.018870099, z: -0.058805358, w: 0.9960189}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamo:Rogue_Cape
       parentName: chest
@@ -284,22 +284,22 @@ ModelImporter:
     - name: upperarm.l
       parentName: chest
       position: {x: -0.212, y: 0.1341, z: 0}
-      rotation: {x: -0.4915255, y: 0.43034962, z: 0.5685058, w: 0.5000029}
+      rotation: {x: -0.5692002, y: 0.54511666, z: 0.47140774, w: 0.39576977}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerarm.l
       parentName: upperarm.l
       position: {x: -0, y: 0.2419, z: 0}
-      rotation: {x: 0.011020838, y: 0.15373461, z: 0.02889919, w: 0.98762804}
+      rotation: {x: 0.0007392614, y: -0.015348433, z: -0.013923315, w: 0.999785}
       scale: {x: 1, y: 1, z: 1}
     - name: wrist.l
       parentName: lowerarm.l
       position: {x: -0, y: 0.26, z: 0}
-      rotation: {x: 0.07675125, y: 0.25812137, z: -0.0315135, w: 0.9625433}
+      rotation: {x: 0.28619853, y: 0.5349862, z: -0.22687171, w: 0.76184607}
       scale: {x: 1, y: 1, z: 1}
     - name: hand.l
       parentName: wrist.l
       position: {x: -0, y: 0.0738, z: 0}
-      rotation: {x: -0.00000014466293, y: 0.000000065352864, z: 0.0000053180115, w: 1}
+      rotation: {x: -0.000000037299355, y: -0.000000052029982, z: 0.0000052607534, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: handslot.l
       parentName: hand.l
@@ -309,22 +309,22 @@ ModelImporter:
     - name: upperarm.r
       parentName: chest
       position: {x: 0.212, y: 0.1341, z: 0}
-      rotation: {x: 0.63446796, y: 0.67185354, z: 0.2617005, w: -0.278525}
+      rotation: {x: 0.58000034, y: 0.6805264, z: 0.2712984, w: -0.35620308}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerarm.r
       parentName: upperarm.r
       position: {x: -0, y: 0.2419, z: 0}
-      rotation: {x: 0.012671314, y: -0.0032541286, z: -0.034624346, w: 0.9993148}
+      rotation: {x: -0.027107295, y: 0.0037289853, z: -0.013855008, w: 0.9995296}
       scale: {x: 1, y: 1, z: 1}
     - name: wrist.r
       parentName: lowerarm.r
       position: {x: -0, y: 0.26, z: 0}
-      rotation: {x: 0.12719908, y: -0.08855048, z: 0.04154281, w: 0.9870427}
+      rotation: {x: 0.1591762, y: -0.4206134, z: 0.04034327, w: 0.8922554}
       scale: {x: 1, y: 1, z: 1}
     - name: hand.r
       parentName: wrist.r
       position: {x: -0, y: 0.0738, z: 0}
-      rotation: {x: 0.00000008792872, y: -0.000000044981668, z: -0.0000053327026, w: 1}
+      rotation: {x: -0.000000020488098, y: -0.00000008084485, z: -0.000005264834, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: handslot.r
       parentName: hand.r
@@ -339,17 +339,17 @@ ModelImporter:
     - name: upperleg.l
       parentName: hips
       position: {x: -0.1709, y: 0.1136, z: 0}
-      rotation: {x: 0.9497914, y: -0.17272359, z: 0.26082435, w: -0.005798518}
+      rotation: {x: 0.9764797, y: -0.11393361, z: 0.1697012, w: 0.06861606}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerleg.l
       parentName: upperleg.l
       position: {x: -0, y: 0.2271, z: 0}
-      rotation: {x: 0.30478427, y: -0.11640058, z: -0.025393005, w: 0.94494057}
+      rotation: {x: 0.33342612, y: -0.12467666, z: 0.018988097, w: 0.93430305}
       scale: {x: 1, y: 1, z: 1}
     - name: foot.l
       parentName: lowerleg.l
       position: {x: -0, y: 0.1494, z: 0}
-      rotation: {x: -0.6532108, y: 0.07871892, z: -0.1080816, w: 0.74527675}
+      rotation: {x: -0.6332268, y: -0.06717697, z: -0.10813701, w: 0.76342475}
       scale: {x: 1, y: 1, z: 1}
     - name: toes.l
       parentName: foot.l
@@ -359,17 +359,17 @@ ModelImporter:
     - name: upperleg.r
       parentName: hips
       position: {x: 0.1709, y: 0.1136, z: 0}
-      rotation: {x: 0.9810826, y: 0.06272015, z: -0.18247595, w: -0.01566899}
+      rotation: {x: 0.92454785, y: 0.10915887, z: -0.3650553, w: -0.0054994677}
       scale: {x: 1, y: 1, z: 1}
     - name: lowerleg.r
       parentName: upperleg.r
       position: {x: -0, y: 0.2271, z: 0}
-      rotation: {x: 0.31550458, y: 0.11831843, z: 0.03518042, w: 0.9408613}
+      rotation: {x: 0.27752194, y: 0.15055278, z: 0.044564232, w: 0.9478024}
       scale: {x: 1, y: 1, z: 1}
     - name: foot.r
       parentName: lowerleg.r
       position: {x: -0, y: 0.1494, z: 0}
-      rotation: {x: -0.6831989, y: -0.030953402, z: 0.013239882, w: 0.7294559}
+      rotation: {x: -0.6217479, y: 0.05092739, z: 0.0648724, w: 0.778863}
       scale: {x: 1, y: 1, z: 1}
     - name: toes.r
       parentName: foot.r

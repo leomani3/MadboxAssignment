@@ -189,6 +189,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1074190871991857406}
     m_Modifications:
     - target: {fileID: 890069025024721108, guid: 36a2db279455a3b4e94f5616dcafb007, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 890069025024721108, guid: 36a2db279455a3b4e94f5616dcafb007, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: caa69582a1dd7af48bd10e29757ea6f5, type: 2}
@@ -394,7 +398,7 @@ MonoBehaviour:
   attackRange: 99
   m_currentTarget: {fileID: 0}
   m_animator: {fileID: 3007664624361777730}
-  m_baseAnimationLength: 1.0333334
+  m_baseAnimationLength: 1.7333333
   m_projectilePoolRef: {fileID: 11400000, guid: aeb17b82dc88b9444959a06512da0e95, type: 2}
   m_projectileSpawnPoint: {fileID: 4669958882658582143}
 --- !u!114 &1110179290804976107

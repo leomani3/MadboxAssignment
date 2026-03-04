@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  healthBarPoolRef: {fileID: 11400000, guid: 4d0c4c34a88d683439e6a8ee94459ab5, type: 2}
+  healthBarOffset: {x: 0, y: 4, z: 0}
 --- !u!114 &4582170290174689488
 MonoBehaviour:
   m_ObjectHideFlags: 0
