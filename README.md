@@ -11,6 +11,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 - Boostrapper : Single entry point for the project. The project will always start by loading the InitScene before going to the mainScene (or menuScene if applicable). This gives me better control over code execution order. All singletons are for sure initialized first.
 - Event-Driven Design : OnDeath, OnHealthChanged, OnStartedMoving etc. keep modules decoupled. The health bar, drop module, and unregistration all react to the same events without knowing each other.
 - The LevelManager handles the waves of enemies which are defined in LevelData (scriptable objects) and the overall loop.
+- Save system : eventhough it is not extensively used due to the small nature of this project, everything that gets put in GameData is automatically savec using EasySave. For now, only the current experience gained and current level are saved
 
 ### Juiciness
 - Floating text : floating damage numbers and critical strike integration (using TMP sprite asset)
@@ -35,7 +36,6 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 - Sounds & music
 - Health packs drop from time to time
 - Overall game progression : more worlds when the first one is finished
-- Save system : actually is it already implemented. Anything in the GameData class gets automatically saved using EasySave but the simplicity of the loop I went for didn't justify saving anything.
 - Daily rewards
 - overall monetisation
 
