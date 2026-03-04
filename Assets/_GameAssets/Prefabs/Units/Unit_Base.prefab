@@ -61,7 +61,7 @@ CharacterController:
   m_Height: 2.25
   m_Radius: 0.5
   m_SlopeLimit: 0
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.125, z: 0}
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bde38c5ddca8e24c9c53f251bd72e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_animator: {fileID: 0}
+  m_deathFxPoolRef: {fileID: 11400000, guid: 52f72ddaaa3b5e842ae9d76c59a99899, type: 2}
   maxHealth: 100
   healthBarPoolRef: {fileID: 11400000, guid: 4d0c4c34a88d683439e6a8ee94459ab5, type: 2}
   healthBarOffset: {x: 0, y: 4, z: 0}

@@ -77,6 +77,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8450181552360600497, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1574942959544862886}
+    - targetCorrespondingSourceObject: {fileID: 8450181552360600497, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1855131685016354436}
   m_SourcePrefab: {fileID: 100100000, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
 --- !u!1 &5948212234783269771 stripped
 GameObject:
@@ -110,10 +113,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49cbb78de146cb479b2832d8b13d251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 5
+  attackDamage: 15
   attackSpeed: 1
-  attackRange: 2
+  attackRange: 1.5
   m_currentTarget: {fileID: 0}
+--- !u!114 &1855131685016354436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948212234783269771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6beed96766599429b1a0953a74c037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nbOrbToDrop: 3
+  m_xpOrbPoolRef: {fileID: 11400000, guid: 6e93cb938f67807498113cacaf21014b, type: 2}
 --- !u!143 &6064706807719830395 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 8350643957287891777, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}

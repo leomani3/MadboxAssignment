@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
 
 public class EntityManager : Singleton<EntityManager>
 {
+    public Action<Entity> onEntityRegistered;
+    public Action<Entity> onEntityUnregistered;
+    
     private Entity m_player;
     private HashSet<Entity> m_enemies = new HashSet<Entity>();
     private HashSet<Entity> m_entities = new HashSet<Entity>();
-    
     private Dictionary<Collider, Entity> m_entitiesByColliders = new Dictionary<Collider, Entity>();
     
     public HashSet<Entity> AllEntities => m_entities;
@@ -40,19 +43,29 @@ public class EntityManager : Singleton<EntityManager>
                 m_enemies.Add(entity);
             }
         }
+        
+        onEntityRegistered?.Invoke(entity);
     }
 
     internal void Unregister(Entity entity)
     {
         if (entity == null) return;
-
-        if (!m_entities.Remove(entity))
-            return;
         
-        if (m_entitiesByColliders.ContainsKey(entity.Collider))
+        m_entities.Remove(entity);
+        m_entitiesByColliders.Remove(entity.Collider);
+        if (entity.TryGetModule(out EntityTeamModule teamModule))
         {
-            m_entitiesByColliders.Remove(entity.Collider);
+            if (teamModule.Team == Team.Player)
+            {
+                m_player = entity;
+            }
+            else if (teamModule.Team == Team.Enemy)
+            {
+                m_enemies.Remove(entity);
+            }
         }
+        
+        onEntityUnregistered?.Invoke(entity);
     }
 
     public Entity FindClosestEnemy(Entity sourceEntity)
@@ -62,6 +75,8 @@ public class EntityManager : Singleton<EntityManager>
 
         foreach (Entity entity in m_entities)
         {
+            if (!entity.CanBeTargeted) break;
+            
             if (entity != sourceEntity && entity.IsEnemy(sourceEntity))
             {
                 float distance = Vector3.Distance(sourceEntity.transform.position, entity.transform.position);

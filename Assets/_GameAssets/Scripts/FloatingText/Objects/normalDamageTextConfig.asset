@@ -25,4 +25,4 @@ MonoBehaviour:
   enableFadeOut: 1
   YOffset: 75
   randomXMovement: 1
-  minMaxXOffset: {x: -75, y: 75}
+  minMaxXOffset: {x: -30, y: 30}

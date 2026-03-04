@@ -5,7 +5,7 @@ public class EntityAttackModule : EntityModule
 {
     [Header("Attack Settings")]
     [SerializeField] protected float attackDamage = 10f;
-    [SerializeField] protected float attackSpeed = 1f;   // attacks per second
+    [SerializeField] protected float attackSpeed = 1f; 
     [SerializeField] protected float attackRange = 1f;
 
     [SerializeField, ReadOnly] protected Entity m_currentTarget;
@@ -54,12 +54,28 @@ public class EntityAttackModule : EntityModule
     protected void SetTarget(Entity target)
     {
         if (m_currentTarget == target) return;
+
+        if (m_currentTarget != null && m_currentTarget.TryGetModule(out EntityHealthModule oldHealthModule))
+            oldHealthModule.OnDeath -= OnTargetDied;
+
         OnTargetChanged(m_currentTarget, target);
         m_currentTarget = target;
+
+        if (m_currentTarget != null && m_currentTarget.TryGetModule(out EntityHealthModule newHealthModule))
+            newHealthModule.OnDeath += OnTargetDied;
     }
-    
+
     protected virtual void OnTargetChanged(Entity oldTarget, Entity newTarget)
     {
+    }
+
+    private void OnTargetDied()
+    {
+        if (m_currentTarget != null && m_currentTarget.TryGetModule(out EntityHealthModule healthModule))
+            healthModule.OnDeath -= OnTargetDied;
+
+        m_currentTarget = null;
+        FindTarget();
     }
 
     protected bool IsInRange(Entity target)
@@ -67,8 +83,7 @@ public class EntityAttackModule : EntityModule
         float distSqr = (target.transform.position - Owner.transform.position).sqrMagnitude;
         return distSqr <= attackRange * attackRange;
     }
-
-    // Child classes call this in Update to attempt an attack.
+    
     protected virtual void TryAttack()
     {
         if (!m_canAttack || !IsAttackReady || m_currentTarget == null)
@@ -76,9 +91,7 @@ public class EntityAttackModule : EntityModule
 
         PerformAttack();
     }
-
-    // Override to implement the actual attack logic.
-    // Always call base.PerformAttack() to stamp the cooldown.
+    
     protected virtual void PerformAttack()
     {
         m_attackCooldownTimer = AttackInterval;

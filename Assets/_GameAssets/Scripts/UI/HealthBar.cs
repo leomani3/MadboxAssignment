@@ -88,7 +88,7 @@ public class HealthBar : MonoBehaviour, IPoolable
     }
     public void SetValue(float currentValue, float maxValue, bool instant, bool showChunks)
     {
-        maxValue = Mathf.Max(maxValue, 0.0001f); // guard against division by zero
+        maxValue = Mathf.Max(maxValue, 0.0001f);
         float targetNormalized = Mathf.Clamp01(currentValue / maxValue);
 
         if (targetNormalized >= 1 && hideWhenFull)
@@ -248,7 +248,7 @@ public class HealthBar : MonoBehaviour, IPoolable
     private void UpdateSlider(float target, bool instant)
     {
         sliderTween?.Kill();
-        currentNormalized = target; // keep cached value in sync immediately
+        currentNormalized = target;
 
         if (instant)
         {

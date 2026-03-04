@@ -14,6 +14,7 @@ public class EntityHealthModule : EntityModule
     
     [Header("References")]
     [SerializeField] private Animator m_animator;
+    [SerializeField] private ParticleSystemPoolRef m_deathFxPoolRef;
     
     [Header("Health Settings")]
     [SerializeField, Min(1f)] private float maxHealth = 100f;
@@ -32,19 +33,15 @@ public class EntityHealthModule : EntityModule
     [SerializeField, Min(0f)] private float sheenHoldDuration = 0.05f;
     [SerializeField, Min(0f)] private float sheenFadeDuration = 0.15f;
 
-
-
     private float m_currentHealth;
     private bool m_isDead;
     private HealthBar m_healthBar;
 
-    // Cached renderers and their original colours for the white-sheen effect
     private Renderer[] m_renderers;
     private Color[] m_originalColors;
     private Sequence m_sheenSequence;
     private Tween m_punchTween;
-
-    // ─── Emission property for the white-sheen flash ───
+    
     private static readonly int s_emissionColorID = Shader.PropertyToID("_EmissionColor");
 
     public float CurrentHealth => m_currentHealth;
@@ -61,10 +58,6 @@ public class EntityHealthModule : EntityModule
         SpawnHealthBar();
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  Renderer Cache
-    // ─────────────────────────────────────────────────────────────────────────
-
     private void CacheRenderers()
     {
         m_renderers = Owner.GetComponentsInChildren<Renderer>(includeInactive: true);
@@ -72,20 +65,15 @@ public class EntityHealthModule : EntityModule
 
         for (int i = 0; i < m_renderers.Length; i++)
         {
-            Material mat = m_renderers[i].material; // creates instance automatically
-
-            // Ensure the emission keyword is enabled so SetColor has a visible effect
+            Material mat = m_renderers[i].material;
+            
             mat.EnableKeyword("_EMISSION");
 
             m_originalColors[i] = mat.HasProperty(s_emissionColorID)
                 ? mat.GetColor(s_emissionColorID)
-                : Color.black; // emission off by default = black
+                : Color.black;
         }
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  Damage Feedback
-    // ─────────────────────────────────────────────────────────────────────────
 
     private void PlayDamageFeedback()
     {
@@ -95,9 +83,8 @@ public class EntityHealthModule : EntityModule
 
     private void PlayPunchScale()
     {
-        // Kill any running punch so hits don't stack oddly
         m_punchTween?.Kill(complete: true);
-        Owner.transform.localScale = Vector3.one; // reset before new punch
+        Owner.transform.localScale = Vector3.one;
 
         m_punchTween = Owner.transform
             .DOPunchScale(punchScale, punchDuration, punchVibrato, punchElasticity)
@@ -118,11 +105,9 @@ public class EntityHealthModule : EntityModule
             if (!mat.HasProperty(s_emissionColorID)) continue;
 
             Color original = m_originalColors[i];
-
-            // Snap emission to bright white immediately
+            
             mat.SetColor(s_emissionColorID, Color.white);
-
-            // Fade emission back to its original value (usually black = off)
+            
             Tween fade = mat
                 .DOColor(original, s_emissionColorID, sheenFadeDuration)
                 .SetDelay(sheenHoldDuration)
@@ -134,17 +119,11 @@ public class EntityHealthModule : EntityModule
         m_sheenSequence.Play();
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  Health Bar
-    // ─────────────────────────────────────────────────────────────────────────
-
     private void SpawnHealthBar()
     {
-        // Spawn into the game canvas so it renders in screen space
         Transform canvasTransform = UIManager.Instance.GameCanvas.transform;
         m_healthBar = healthBarPoolRef.pool.Spawn(canvasTransform);
-
-        // Anchor the bar to a point above the entity and set initial value
+        
         Transform trackTarget = GetOffsetTrackingTransform();
         m_healthBar.Setup(trackTarget, m_currentHealth, maxHealth);
     }
@@ -155,9 +134,7 @@ public class EntityHealthModule : EntityModule
         healthBarPoolRef.pool.Despawn(m_healthBar);
         m_healthBar = null;
     }
-
-    // Returns a cached child Transform that sits at healthBarOffset above the entity.
-    // GenericGauge.Update() will track it each frame via WorldToScreenPoint.
+    
     private Transform GetOffsetTrackingTransform()
     {
         const string anchorName = "_HealthBarAnchor";
@@ -175,10 +152,6 @@ public class EntityHealthModule : EntityModule
         if (m_healthBar == null) return;
         m_healthBar.SetValue(m_currentHealth, maxHealth);
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    //  Public API
-    // ─────────────────────────────────────────────────────────────────────────
 
     [Button]
     public void TakeDamage(float amount)
@@ -266,6 +239,8 @@ public class EntityHealthModule : EntityModule
     {
         m_punchTween?.Kill(complete: true);
         m_sheenSequence?.Kill(complete: false);
+
+        m_deathFxPoolRef.pool.Spawn(transform.position, Quaternion.identity, m_deathFxPoolRef.pool.transform);
         
         OnDeath?.Invoke();
     }

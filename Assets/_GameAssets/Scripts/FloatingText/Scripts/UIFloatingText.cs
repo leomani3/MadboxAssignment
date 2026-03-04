@@ -14,7 +14,6 @@ public class UIFloatingText : MonoBehaviour, IPoolable
     [SerializeField] private FloatingTextConfig m_linkedConfig;
     private LeanUIFloatingTextPool m_linkedPool;
     
-    // Stored tweens
     private Sequence _seq;
     private Tween _moveYTween;
     private Tween _moveXTween;
@@ -46,14 +45,12 @@ public class UIFloatingText : MonoBehaviour, IPoolable
         text.font = m_linkedConfig.font;
         text.fontSize = m_linkedConfig.fontSize;
     }
-
-    // IPoolable: called when the object is spawned from the pool
+    
     public void OnSpawn()
     {
         Play();
     }
-
-    // IPoolable: called when the object is despawned back into the pool
+    
     public void OnDespawn()
     {
         KillAllTweens();
@@ -89,8 +86,7 @@ public class UIFloatingText : MonoBehaviour, IPoolable
         KillAllTweens();
 
         float totalMoveDuration = m_linkedConfig.spawnDuration + m_linkedConfig.stayDuration;
-
-        // ------- Movement tweens (stored separately, run outside the sequence)
+        
         _moveYTween = m_parent
             .DOLocalMoveY(m_linkedConfig.YOffset, totalMoveDuration)
             .SetRelative();
@@ -101,25 +97,19 @@ public class UIFloatingText : MonoBehaviour, IPoolable
                 .DOLocalMoveX(Random.Range(m_linkedConfig.minMaxXOffset.x, m_linkedConfig.minMaxXOffset.y), totalMoveDuration)
                 .SetRelative();
         }
-
-        // ------- Sequence
+        
         _seq = DOTween.Sequence();
-
-        // Spawn: fade in
+        
         _seq.Append(text.DOFade(1f, m_linkedConfig.spawnDuration));
-
-        // Spawn: scale in
+        
         if (m_linkedConfig.enableScaleIn)
             _seq.Join(m_parent.DOScale(1f, m_linkedConfig.spawnDuration).SetEase(m_linkedConfig.scaleInEase));
-
-        // Stay
+        
         _seq.AppendInterval(m_linkedConfig.stayDuration);
-
-        // Despawn: fade out
+        
         if (m_linkedConfig.enableFadeOut)
             _seq.Append(text.DOFade(0f, m_linkedConfig.despawnDuration));
-
-        // Despawn: scale out
+        
         if (m_linkedConfig.enableScaleOut)
             _seq.Join(m_parent.DOScale(0f, m_linkedConfig.despawnDuration));
 

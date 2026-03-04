@@ -1,7 +1,12 @@
+using System;
+using MyBox;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
+    public Action onWaveFinished;
+
     [Header("Player")]
     [SerializeField] private EntityPoolRef m_playerPoolRef;
     [SerializeField] private Transform m_playerSpawnPoint;
@@ -14,8 +19,13 @@ public class LevelManager : MonoBehaviour
     private Entity m_playerEntity;
 
     private int m_currentWaveIndex = -1;
-    private int m_aliveEnemyCount = 0;
     private bool m_levelComplete = false;
+
+    private void Awake()
+    {
+        EntityManager.Instance.onEntityRegistered += OnEntityRegistered;
+        EntityManager.Instance.onEntityUnregistered += OnEntityUnregistered;
+    }
 
     private void Start()
     {
@@ -23,14 +33,33 @@ public class LevelManager : MonoBehaviour
         StartEnemyWaves();
     }
 
+    private void OnEntityRegistered(Entity entity)
+    {
+
+    }
+
+    private void OnEntityUnregistered(Entity entity)
+    {
+        if (entity == m_playerEntity)
+        {
+            PlayerDeathStart();
+        }
+        else
+        {
+            if (EntityManager.Instance.Enemies.Count <= 0)
+            {
+                // Notify all XpOrbs (and anything else listening) that the wave ended
+                onWaveFinished?.Invoke();
+
+                SpawnNextWave();
+            }
+        }
+    }
+
     private void SpawnPlayer()
     {
         m_playerEntity = m_playerPoolRef.pool.Spawn(m_playerSpawnPoint.position, Quaternion.identity, m_playerPoolRef.pool.transform);
         m_playerEntity.Setup(m_playerPoolRef.pool);
-        if (m_playerEntity.TryGetModule(out EntityHealthModule playerHealthModule))
-        {
-            playerHealthModule.OnDeathStart += PlayerDeathStart;
-        }
         CameraManager.Instance.Setup(m_playerEntity.transform, m_cameraBoundingBox);
     }
 
@@ -69,38 +98,12 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        m_aliveEnemyCount = wave.enemies.Length;
-        Debug.Log($"Starting wave {m_currentWaveIndex + 1} / {m_levelData.waves.Length} — {m_aliveEnemyCount} enemies");
-
         for (int i = 0; i < wave.enemies.Length; i++)
         {
             Vector3 spawnPosition = GetSpawnPosition();
             Entity enemy = wave.enemies[i].EntityData.entityPoolRef.pool.Spawn(spawnPosition, Quaternion.identity, transform);
             enemy.Setup(wave.enemies[i].EntityData.entityPoolRef.pool);
-
-            if (enemy.TryGetModule(out EntityHealthModule healthModule))
-            {
-                healthModule.OnDeathStart += EnemyDeathStart;
-            }
-            else
-            {
-                Debug.LogWarning($"Enemy '{enemy.name}' has no EntityHealthModule — it won't be tracked.");
-                m_aliveEnemyCount--;
-            }
         }
-
-        // Edge case: all enemies were missing health modules
-        if (m_aliveEnemyCount <= 0)
-            SpawnNextWave();
-    }
-
-    private void EnemyDeathStart()
-    {
-        m_aliveEnemyCount--;
-        Debug.Log($"Enemy died. {m_aliveEnemyCount} remaining in wave {m_currentWaveIndex + 1}.");
-
-        if (m_aliveEnemyCount <= 0)
-            SpawnNextWave();
     }
 
     private void OnLevelComplete()
@@ -117,7 +120,7 @@ public class LevelManager : MonoBehaviour
             Bounds bounds = m_enemySpawnVolume.bounds;
             float x = Random.Range(bounds.min.x, bounds.max.x);
             float z = Random.Range(bounds.min.z, bounds.max.z);
-            return new Vector3(x, bounds.min.y, z);
+            return new Vector3(x, 0, z);
         }
 
         Debug.LogWarning("LevelManager: No enemy spawn volume assigned, spawning at origin.");

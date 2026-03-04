@@ -13,11 +13,6 @@ public class PlayerMovementModule : EntityMovementModule
         float vertical = UltimateJoystick.GetVerticalAxis("Movement");
 
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
-
-        // if (Owner.TryGetModule(out PlayerAttackModule attackModule))
-        // {
-        //     attackModule.SetCanAttack(moveDirection == Vector3.zero);
-        // }
         
         m_movementSpite.transform.position = transform.position + (moveDirection * 1.5f);
         

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Lean.Pool;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : MonoBehaviour, IPoolable
 {
     [SerializeField] private EntityData entityData;
     [SerializeField] private Collider m_collider;
@@ -28,20 +28,20 @@ public class Entity : MonoBehaviour
     
     public EntityData EntityData => entityData;
     public Collider Collider => m_collider;
+    
+    public void OnSpawn()
+    {
+        RegisterModules();
+        Register();
+    }
+
+    public void OnDespawn()
+    {
+    }
 
     public void Setup(LeanEntityPool originPool)
     {
         m_originPool = originPool;
-    }
-    
-    protected virtual void Awake()
-    {
-        RegisterModules();
-    }
-
-    private void Start()
-    {
-        EntityManager.Instance?.Register(this);
     }
 
     public void SetTargeted(bool targeted)
@@ -64,10 +64,16 @@ public class Entity : MonoBehaviour
         
             module.Initialize(this);
         }
+        
+        foreach (var module in m_modules.Values)
+        {
+            module.OnAllModuleInitialized();
+        }
 
         if (TryGetModule(out EntityHealthModule healthModule))
         {
-            healthModule.OnDeath += DespawnAnUnregister;
+            healthModule.OnDeathStart += Unregister;
+            healthModule.OnDeath += Despawn;
         }
     }
     
@@ -104,18 +110,29 @@ public class Entity : MonoBehaviour
     
     public bool HasModule<T>() where T : EntityModule => m_modules.ContainsKey(typeof(T));
 
-    private void DespawnAnUnregister()
+    private void Despawn()
     {
         if (TryGetModule(out EntityHealthModule healthModule))
         {
-            healthModule.OnDeath -= DespawnAnUnregister;
+            healthModule.OnDeathStart -= Unregister;
+            healthModule.OnDeath -= Despawn;
         }
         
         if (m_originPool != null)
         {
             m_originPool.Despawn(this);
         }
-        
+    }
+
+    private void Register()
+    {
+        m_collider.enabled = true;
+        EntityManager.Instance?.Register(this);
+    }
+
+    private void Unregister()
+    {
+        m_collider.enabled = false;
         EntityManager.Instance?.Unregister(this);
     }
 }
