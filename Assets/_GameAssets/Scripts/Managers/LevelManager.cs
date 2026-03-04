@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using MyBox;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -26,11 +27,21 @@ public class LevelManager : Singleton<LevelManager>
         EntityManager.Instance.onEntityRegistered += OnEntityRegistered;
         EntityManager.Instance.onEntityUnregistered += OnEntityUnregistered;
     }
+    
+    private void OnDestroy()
+    {
+        if (EntityManager.Instance != null)
+        {
+            EntityManager.Instance.onEntityRegistered -= OnEntityRegistered;
+            EntityManager.Instance.onEntityUnregistered -= OnEntityUnregistered;
+        }
+    }
 
     private void Start()
     {
         SpawnPlayer();
         StartEnemyWaves();
+        UIManager.Instance.OpenCanvas(UIManager.Instance.GameCanvas);
     }
 
     private void OnEntityRegistered(Entity entity)
@@ -58,14 +69,17 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnPlayer()
     {
-        m_playerEntity = m_playerPoolRef.pool.Spawn(m_playerSpawnPoint.position, Quaternion.identity, m_playerPoolRef.pool.transform);
+        m_playerEntity = m_playerPoolRef.pool.Spawn(m_playerSpawnPoint.position, Quaternion.identity, transform);
         m_playerEntity.Setup(m_playerPoolRef.pool);
         CameraManager.Instance.Setup(m_playerEntity.transform, m_cameraBoundingBox);
     }
 
     private void PlayerDeathStart()
     {
-        Debug.Log("PLAYER DEAD");
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            UIManager.Instance.OpenCanvas(UIManager.Instance.LoseCanvas);
+        });
     }
 
     private void StartEnemyWaves()
@@ -110,7 +124,10 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (m_levelComplete) return;
         m_levelComplete = true;
-        Debug.Log("All waves complete. Level finished!");
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            UIManager.Instance.OpenCanvas(UIManager.Instance.WinCanvas);
+        });
     }
 
     private Vector3 GetSpawnPosition()

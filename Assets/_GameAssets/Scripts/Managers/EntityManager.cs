@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MyBox;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class EntityManager : Singleton<EntityManager>
@@ -8,23 +9,23 @@ public class EntityManager : Singleton<EntityManager>
     public Action<Entity> onEntityRegistered;
     public Action<Entity> onEntityUnregistered;
     
-    private Entity m_player;
-    private HashSet<Entity> m_enemies = new HashSet<Entity>();
-    private HashSet<Entity> m_entities = new HashSet<Entity>();
+    [SerializeField, ReadOnly]private Entity m_player;
+    [SerializeField, ReadOnly] private List<Entity> m_enemies = new List<Entity>();
+    [SerializeField, ReadOnly] private List<Entity> m_entities = new List<Entity>();
     private Dictionary<Collider, Entity> m_entitiesByColliders = new Dictionary<Collider, Entity>();
     
-    public HashSet<Entity> AllEntities => m_entities;
+    public List<Entity> AllEntities => m_entities;
     public Dictionary<Collider, Entity> EntitiesByCollider => m_entitiesByColliders;
-    public HashSet<Entity> Enemies => m_enemies;
+    public List<Entity> Enemies => m_enemies;
     public Entity Player => m_player;
     
     internal void Register(Entity entity)
     {
         if (entity == null) return;
 
-        if (!m_entities.Add(entity))
+        if (!m_entities.Contains(entity))
         {
-            return;
+            m_entities.Add(entity);
         }
 
         if (!m_entitiesByColliders.ContainsKey(entity.Collider))

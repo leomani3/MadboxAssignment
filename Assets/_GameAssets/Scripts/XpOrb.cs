@@ -23,10 +23,6 @@ public class XpOrb : MonoBehaviour, IPoolable
     private Coroutine m_collectCoroutine;
     private bool m_isCollecting = false;
 
-    // ──────────────────────────────────────────────
-    //  IPoolable
-    // ──────────────────────────────────────────────
-
     public void OnSpawn()
     {
         m_isCollecting = false;
@@ -51,10 +47,6 @@ public class XpOrb : MonoBehaviour, IPoolable
             LevelManager.Instance.onWaveFinished -= OnWaveFinished;
     }
 
-    // ──────────────────────────────────────────────
-    //  Spawn animation
-    // ──────────────────────────────────────────────
-
     private void PlaySpawnAnimation()
     {
         m_spawnSequence?.Kill();
@@ -67,14 +59,9 @@ public class XpOrb : MonoBehaviour, IPoolable
         );
 
         m_spawnSequence = DOTween.Sequence();
-        // DOJump handles movement — DOScale runs alongside to pop the mesh in
         m_spawnSequence.Append(transform.DOJump(scatterTarget, 3f, 1, 0.3f));
         m_spawnSequence.Join(transform.DOScale(Vector3.one, 0.15f).SetEase(Ease.OutBack));
     }
-
-    // ──────────────────────────────────────────────
-    //  Wave finished — move to player automatically
-    // ──────────────────────────────────────────────
 
     private void OnWaveFinished()
     {
@@ -92,8 +79,7 @@ public class XpOrb : MonoBehaviour, IPoolable
         
         if (m_collectCoroutine != null)
             StopCoroutine(m_collectCoroutine);
-
-        // If the spawn animation is still running, let it finish first then collect
+        
         if (m_spawnSequence != null && m_spawnSequence.IsActive() && m_spawnSequence.IsPlaying())
         {
             m_spawnSequence.OnComplete(() => 
@@ -128,10 +114,6 @@ public class XpOrb : MonoBehaviour, IPoolable
 
         OnOrbCollected();
     }
-
-    // ──────────────────────────────────────────────
-    //  Collection callback — next steps go here
-    // ──────────────────────────────────────────────
 
     private void OnOrbCollected()
     {

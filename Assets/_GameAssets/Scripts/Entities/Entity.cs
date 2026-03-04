@@ -133,6 +133,14 @@ public class Entity : MonoBehaviour, IPoolable
     private void Unregister()
     {
         m_collider.enabled = false;
-        EntityManager.Instance?.Unregister(this);
+        if (EntityManager.Instance!= null)
+        {
+            EntityManager.Instance?.Unregister(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Unregister();
     }
 }
