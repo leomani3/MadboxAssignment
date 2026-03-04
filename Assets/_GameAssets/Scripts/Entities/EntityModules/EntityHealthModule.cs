@@ -16,9 +16,6 @@ public class EntityHealthModule : EntityModule
     [SerializeField] private Animator m_animator;
     [SerializeField] private ParticleSystemPoolRef m_deathFxPoolRef;
     [SerializeField] private FloatingTextConfig m_floatingTextConfig;
-    
-    [Header("Health Settings")]
-    [SerializeField, Min(1f)] private float maxHealth = 100f;
 
     [Header("Health Bar")]
     [SerializeField] private HealthBarPoolRef healthBarPoolRef;
@@ -46,18 +43,19 @@ public class EntityHealthModule : EntityModule
     private static readonly int s_emissionColorID = Shader.PropertyToID("_EmissionColor");
 
     public float CurrentHealth => m_currentHealth;
-    public float MaxHealth => maxHealth;
+    public float MaxHealth => Owner.EntityData.maxHealth;
     public bool IsDead => m_isDead;
-    public float HealthPercent => maxHealth > 0f ? m_currentHealth / maxHealth : 0f;
+    public float HealthPercent => MaxHealth > 0f ? m_currentHealth / MaxHealth : 0f;
 
     protected override void OnInitialize()
     {
-        m_currentHealth = maxHealth;
+        m_currentHealth = MaxHealth;
         m_isDead = false;
 
         CacheRenderers();
         SpawnHealthBar();
     }
+    
 
     private void CacheRenderers()
     {
@@ -126,7 +124,7 @@ public class EntityHealthModule : EntityModule
         m_healthBar = healthBarPoolRef.pool.Spawn(canvasTransform);
         
         Transform trackTarget = GetOffsetTrackingTransform();
-        m_healthBar.Setup(trackTarget, m_currentHealth, maxHealth);
+        m_healthBar.Setup(trackTarget, m_currentHealth, MaxHealth);
     }
 
     private void DespawnHealthBar()
@@ -151,7 +149,7 @@ public class EntityHealthModule : EntityModule
     private void UpdateHealthBar()
     {
         if (m_healthBar == null) return;
-        m_healthBar.SetValue(m_currentHealth, maxHealth);
+        m_healthBar.SetValue(m_currentHealth, MaxHealth);
     }
 
     [Button]
@@ -172,7 +170,7 @@ public class EntityHealthModule : EntityModule
         PlayDamageFeedback();
 
         OnDamageTaken?.Invoke(amount, m_currentHealth);
-        OnHealthChanged?.Invoke(m_currentHealth, maxHealth, delta);
+        OnHealthChanged?.Invoke(m_currentHealth, MaxHealth, delta);
 
         if (m_currentHealth <= 0f)
             StartDeathAnimation();
@@ -184,40 +182,13 @@ public class EntityHealthModule : EntityModule
         if (m_isDead || amount <= 0f) return;
 
         float previous = m_currentHealth;
-        m_currentHealth = Mathf.Min(maxHealth, m_currentHealth + amount);
+        m_currentHealth = Mathf.Min(MaxHealth, m_currentHealth + amount);
         float delta = m_currentHealth - previous;
 
         UpdateHealthBar();
 
         OnHealed?.Invoke(amount, m_currentHealth);
-        OnHealthChanged?.Invoke(m_currentHealth, maxHealth, delta);
-    }
-
-    public void RestoreFullHealth()
-    {
-        if (m_isDead) return;
-
-        float previous = m_currentHealth;
-        m_currentHealth = maxHealth;
-
-        UpdateHealthBar();
-
-        OnHealthChanged?.Invoke(m_currentHealth, maxHealth, m_currentHealth - previous);
-    }
-
-    public void SetMaxHealth(float newMax, bool scaleCurrentHealth = false)
-    {
-        if (newMax <= 0f) return;
-
-        if (scaleCurrentHealth && maxHealth > 0f)
-            m_currentHealth = m_currentHealth / maxHealth * newMax;
-
-        maxHealth = newMax;
-        m_currentHealth = Mathf.Clamp(m_currentHealth, 0f, maxHealth);
-
-        UpdateHealthBar();
-
-        OnHealthChanged?.Invoke(m_currentHealth, maxHealth, 0f);
+        OnHealthChanged?.Invoke(m_currentHealth, MaxHealth, delta);
     }
 
     private void StartDeathAnimation()

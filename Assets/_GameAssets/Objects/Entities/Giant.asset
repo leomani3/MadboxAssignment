@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62c29f3ecefb4564987df19d43b1aa49, type: 3}
-  m_Name: Skeleton
+  m_Name: Giant
   m_EditorClassIdentifier: 
-  displayedName: Skeleton
-  entityPoolRef: {fileID: 11400000, guid: 901da77f728960c44bc212ddfe692814, type: 2}
-  maxHealth: 100
-  moveSpeed: 2.5
+  displayedName: Giant
+  entityPoolRef: {fileID: 11400000, guid: a41bb1a062cf1794dba34299b9975655, type: 2}
+  maxHealth: 200
+  moveSpeed: 2
   attackSpeed: 1
-  attackDamage: 15
-  attackRange: 1.5
+  attackDamage: 50
+  attackRange: 2

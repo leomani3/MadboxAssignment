@@ -16,3 +16,16 @@ MonoBehaviour:
   - enemies:
     - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
     - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
+  - enemies:
+    - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
+    - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
+    - {fileID: 7953476265558088857, guid: 9c4a0095df2f66745bbec369b0405e1a, type: 3}
+  - enemies:
+    - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
+    - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
+    - {fileID: 7953476265558088857, guid: 9c4a0095df2f66745bbec369b0405e1a, type: 3}
+    - {fileID: 7953476265558088857, guid: 9c4a0095df2f66745bbec369b0405e1a, type: 3}
+  - enemies:
+    - {fileID: 7953476265558088857, guid: 33d7eee9ced9a7d459d417f5c819eacd, type: 3}
+    - {fileID: 7953476265558088857, guid: 9c4a0095df2f66745bbec369b0405e1a, type: 3}
+    - {fileID: 7953476265558088857, guid: 9676b75047646e94db7cdc09c51da86d, type: 3}
