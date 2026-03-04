@@ -7,12 +7,14 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private CustomCanvas m_gameCanvas;
     [SerializeField] private CustomCanvas m_winCanvas;
     [SerializeField] private CustomCanvas m_loseCanvas;
+    [SerializeField] private CustomCanvas m_choiceCanvas;
     
     [SerializeField] private CustomCanvas m_defaultCanvas;
     
     public CustomCanvas GameCanvas => m_gameCanvas;
     public CustomCanvas WinCanvas => m_winCanvas;
     public CustomCanvas LoseCanvas => m_loseCanvas;
+    public CustomCanvas ChoiceCanvas => m_choiceCanvas;
     
     private CustomCanvas m_currentCanvas;
 
@@ -21,6 +23,7 @@ public class UIManager : Singleton<UIManager>
         m_gameCanvas.Close(true);
         m_winCanvas.Close(true);
         m_loseCanvas.Close(true);
+        m_choiceCanvas.Close(true);
         
         OpenCanvas(m_defaultCanvas, true);
     }

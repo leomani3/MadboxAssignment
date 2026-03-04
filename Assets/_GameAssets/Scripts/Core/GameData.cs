@@ -10,6 +10,7 @@ public class GameData : ScriptableObject
 	[ES3NonSerializable] public Action<CurrencyAsset, double> onCurrencyAdded;
 	[ES3NonSerializable] public Action<CurrencyAsset> onNotEnoughCurrency;
 	[ES3NonSerializable] public Action OnResetData;
+	[ES3NonSerializable] public Action<float> OnExperienceChanged;
 
 	private static GameData _instance;
 	public static GameData Instance => _instance ?? Load();
@@ -40,11 +41,38 @@ public class GameData : ScriptableObject
 	// ---------------------------------------------------------
 	[ES3NonSerializable] public bool isDirty = false;
 
+	#region Experience
+
+	public float currentExperience;
+	public int currentLevel;
+
+	public void GainExperience(float amount)
+	{
+		currentExperience += amount;
+		OnExperienceChanged ?.Invoke(currentExperience);
+		
+		if (currentExperience >= 15)
+		{
+			LevelUp();
+		}
+	}
+
+	public void LevelUp()
+	{
+		currentLevel++;
+		currentExperience = 0;
+		OnExperienceChanged ?.Invoke(currentExperience);
+		UIManager.Instance.OpenCanvas(UIManager.Instance.ChoiceCanvas);
+	}
+
+	#endregion
+
 	#region General
 	
 	public static void ResetGameData()
 	{
-
+		Instance.currentExperience = 0;
+		Instance.currentLevel = 0;
 		Instance.Save();
 		Instance.OnResetData?.Invoke();
 	}

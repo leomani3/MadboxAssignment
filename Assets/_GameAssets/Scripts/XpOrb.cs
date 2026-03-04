@@ -117,6 +117,7 @@ public class XpOrb : MonoBehaviour, IPoolable
 
     private void OnOrbCollected()
     {
+        GameData.Instance.GainExperience(1);
         m_pool.Despawn(this);
     }
 }
