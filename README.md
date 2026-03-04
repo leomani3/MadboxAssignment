@@ -35,6 +35,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 - Not import whole asset packs into the project
 - Look into and optimise asset import settings
 - Some Singletons are a bit more rigid than they could be. I would change that
+- Use of Addressables 
 
 ## External packages used :
 - Ultimate Joystick : https://assetstore.unity.com/packages/p/ultimate-joystick-27695
