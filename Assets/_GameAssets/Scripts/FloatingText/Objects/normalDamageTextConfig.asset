@@ -15,14 +15,14 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   font: {fileID: 11400000, guid: 715855d65a80d4bd1afb15a96bcf5a78, type: 2}
   fontSize: 40
-  spawnDuration: 0.3
+  spawnDuration: 0.2
   enableScaleIn: 1
   scaleInEase: 18
   enableFadeIn: 1
-  stayDuration: 0.1
-  despawnDuration: 0.15
+  stayDuration: 0.15
+  despawnDuration: 0.1
   enableScaleOut: 0
   enableFadeOut: 1
-  YOffset: 50
+  YOffset: 75
   randomXMovement: 1
-  minMaxXOffset: {x: -50, y: 50}
+  minMaxXOffset: {x: -75, y: 75}
