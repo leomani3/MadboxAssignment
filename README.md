@@ -30,6 +30,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 - Real UI system
 - UI : animations in end screens, XP bar, Wave UI, etc...
 - AI different behaviours : extend on the existing EntityModule architecture to define new behaviours (distance enemy, charge enemy, etc...)
+- Sounds & music
 
 ## What I would do in a real use case :
 - Not import whole asset packs into the project
