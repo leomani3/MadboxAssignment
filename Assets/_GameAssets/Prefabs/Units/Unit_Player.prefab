@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: entityData
       value: 
       objectReference: {fileID: 11400000, guid: e54292b2a87acbe45b9319f4341ec9f7, type: 2}
+    - target: {fileID: 1665280611800076260, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_entityData
+      value: 
+      objectReference: {fileID: 11400000, guid: e54292b2a87acbe45b9319f4341ec9f7, type: 2}
     - target: {fileID: 3166141458545963254, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: m_Name
       value: Unit_Player
@@ -323,6 +327,10 @@ PrefabInstance:
       propertyPath: m_animator
       value: 
       objectReference: {fileID: 3007664624361777730}
+    - target: {fileID: 5541402139307812785, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_healthBarPoolRef
+      value: 
+      objectReference: {fileID: 11400000, guid: 4d0c4c34a88d683439e6a8ee94459ab5, type: 2}
     - target: {fileID: 5541402139307812785, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: m_floatingTextConfig
       value: 
@@ -404,9 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8530aa785c6c6e4c8d4cb70f6c7b9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 20
-  attackSpeed: 2
-  attackRange: 99
   m_currentTarget: {fileID: 0}
   m_animator: {fileID: 3007664624361777730}
   m_baseAnimationLength: 1.7333333
@@ -426,7 +431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_characterController: {fileID: 430930829456020189}
   m_animator: {fileID: 3007664624361777730}
-  m_moveSpeed: 8
   m_movementSpite: {fileID: 3671954507909697793}
 --- !u!143 &430930829456020189 stripped
 CharacterController:

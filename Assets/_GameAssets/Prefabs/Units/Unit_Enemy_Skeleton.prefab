@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: entityData
       value: 
       objectReference: {fileID: 11400000, guid: d3ad5bafeacee47448beaffd73968620, type: 2}
+    - target: {fileID: 5307831209080360099, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
+      propertyPath: m_entityData
+      value: 
+      objectReference: {fileID: 11400000, guid: d3ad5bafeacee47448beaffd73968620, type: 2}
     - target: {fileID: 8450181552360600497, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
       propertyPath: m_Name
       value: Unit_Enemy_Skeleton
@@ -100,7 +104,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_characterController: {fileID: 6064706807719830395}
   m_animator: {fileID: 2414886746346182089}
-  m_moveSpeed: 2
 --- !u!114 &1574942959544862886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,9 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49cbb78de146cb479b2832d8b13d251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 15
-  attackSpeed: 1
-  attackRange: 1.5
   m_currentTarget: {fileID: 0}
 --- !u!114 &1855131685016354436
 MonoBehaviour:

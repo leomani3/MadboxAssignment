@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour, IPoolable
 {
-    [SerializeField] private EntityData entityData;
+    [Header("Entity Data")]
+    [SerializeField] private EntityData m_entityData;
+    
+    [Header("References")]
     [SerializeField] private Collider m_collider;
     [SerializeField] private GameObject m_targetedIndicatorObject;
     
@@ -26,7 +29,7 @@ public class Entity : MonoBehaviour, IPoolable
         }
     }
     
-    public EntityData EntityData => entityData;
+    public EntityData EntityData => m_entityData;
     public Collider Collider => m_collider;
     
     public void OnSpawn()
@@ -42,12 +45,6 @@ public class Entity : MonoBehaviour, IPoolable
     public void Setup(LeanEntityPool originPool)
     {
         m_originPool = originPool;
-    }
-
-    public void SetTargeted(bool targeted)
-    {
-        if (m_targetedIndicatorObject != null)
-            m_targetedIndicatorObject.SetActive(targeted);
     }
 
     private void RegisterModules()
@@ -77,15 +74,6 @@ public class Entity : MonoBehaviour, IPoolable
         }
     }
     
-    public T GetModule<T>() where T : EntityModule
-    {
-        if (m_modules.TryGetValue(typeof(T), out var module))
-            return (T)module;
-
-        throw new InvalidOperationException(
-            $"[Entity] Module of type '{typeof(T).Name}' not found on entity '{name}'.");
-    }
-    
     public bool TryGetModule<T>(out T module) where T : EntityModule
     {
         if (m_modules.TryGetValue(typeof(T), out var raw))
@@ -107,8 +95,6 @@ public class Entity : MonoBehaviour, IPoolable
         
         return false;
     }
-    
-    public bool HasModule<T>() where T : EntityModule => m_modules.ContainsKey(typeof(T));
 
     private void Despawn()
     {
@@ -137,6 +123,12 @@ public class Entity : MonoBehaviour, IPoolable
         {
             EntityManager.Instance?.Unregister(this);
         }
+    }
+    
+    public void SetTargeted(bool targeted)
+    {
+        if (m_targetedIndicatorObject != null)
+            m_targetedIndicatorObject.SetActive(targeted);
     }
 
     private void OnDestroy()

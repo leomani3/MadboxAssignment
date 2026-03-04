@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: entityData
       value: 
       objectReference: {fileID: 11400000, guid: a6639cc22eb5dd143a0eb1e55277b3f2, type: 2}
+    - target: {fileID: 5307831209080360099, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
+      propertyPath: m_entityData
+      value: 
+      objectReference: {fileID: 11400000, guid: a6639cc22eb5dd143a0eb1e55277b3f2, type: 2}
     - target: {fileID: 8450181552360600497, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
       propertyPath: m_Name
       value: Unit_Enemy_Giant

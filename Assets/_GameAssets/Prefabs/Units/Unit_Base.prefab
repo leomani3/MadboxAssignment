@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6256840304806217354}
   - component: {fileID: 3266805001127718918}
+  - component: {fileID: 1706583545386968371}
+  - component: {fileID: 3627257243021862937}
   - component: {fileID: 1665280611800076260}
   - component: {fileID: 5541402139307812785}
   - component: {fileID: 4582170290174689488}
-  - component: {fileID: 1706583545386968371}
-  - component: {fileID: 3627257243021862937}
+  - component: {fileID: 6046174763148739751}
   m_Layer: 6
   m_Name: Unit_Base
   m_TagString: Untagged
@@ -65,59 +66,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.125, z: 0}
---- !u!114 &1665280611800076260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3166141458545963254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd2cf44876422642b18c04e054ed882, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityData: {fileID: 0}
-  m_collider: {fileID: 3627257243021862937}
-  m_targetedIndicatorObject: {fileID: 5462650366475608753}
---- !u!114 &5541402139307812785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3166141458545963254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bde38c5ddca8e24c9c53f251bd72e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_animator: {fileID: 0}
-  m_deathFxPoolRef: {fileID: 11400000, guid: 52f72ddaaa3b5e842ae9d76c59a99899, type: 2}
-  m_floatingTextConfig: {fileID: 11400000, guid: cdb3af6339353804b9d16b0b6b4fe187, type: 2}
-  maxHealth: 100
-  healthBarPoolRef: {fileID: 11400000, guid: 4d0c4c34a88d683439e6a8ee94459ab5, type: 2}
-  healthBarOffset: {x: 0, y: 4, z: 0}
-  punchScale: {x: 0.3, y: 0.3, z: 0}
-  punchDuration: 0.3
-  punchVibrato: 10
-  punchElasticity: 0.5
-  sheenHoldDuration: 0
-  sheenFadeDuration: 0.1
---- !u!114 &4582170290174689488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3166141458545963254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4f3328df6c4ea41866586648080158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  enemyTeam: 0
 --- !u!54 &1706583545386968371
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -168,6 +116,70 @@ CapsuleCollider:
   m_Height: 2.25
   m_Direction: 1
   m_Center: {x: 0, y: 1.125, z: 0}
+--- !u!114 &1665280611800076260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd2cf44876422642b18c04e054ed882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_entityData: {fileID: 0}
+  m_collider: {fileID: 3627257243021862937}
+  m_targetedIndicatorObject: {fileID: 5462650366475608753}
+--- !u!114 &5541402139307812785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde38c5ddca8e24c9c53f251bd72e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_animator: {fileID: 0}
+  m_deathFxPoolRef: {fileID: 11400000, guid: 52f72ddaaa3b5e842ae9d76c59a99899, type: 2}
+  m_floatingTextConfig: {fileID: 11400000, guid: cdb3af6339353804b9d16b0b6b4fe187, type: 2}
+  m_healthBarPoolRef: {fileID: 0}
+  healthBarOffset: {x: 0, y: 4, z: 0}
+  punchScale: {x: 0.3, y: 0.3, z: 0}
+  punchDuration: 0.3
+  punchVibrato: 10
+  punchElasticity: 0.5
+--- !u!114 &4582170290174689488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4f3328df6c4ea41866586648080158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  enemyTeam: 0
+--- !u!114 &6046174763148739751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166141458545963254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecfefcfe3e031b4f8a017d2111637bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheenHoldDuration: 0.05
+  sheenFadeDuration: 0.15
 --- !u!1 &4660645131630181294
 GameObject:
   m_ObjectHideFlags: 0
