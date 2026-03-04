@@ -26,11 +26,17 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 
 ## To go further :
 - Stats System : for now stats are represented by float values in EntityData but the goal should be to implement a StatSystem Following the EntityModule architecture and create a EntityStatModule that would handle base stats as well as stat modifications at run time.
+- New playable characters : mage, knight, etc... (could be tied to a gatcha deck building system)
 - Choice screen : pick 1 of 3 bonuses
 - Real UI system
 - UI : animations in end screens, XP bar, Wave UI, etc...
 - AI different behaviours : extend on the existing EntityModule architecture to define new behaviours (distance enemy, charge enemy, etc...)
 - Sounds & music
+- Health packs drop from time to time
+- Overall game progression : more worlds when the first one is finished
+- Save system : actually is it already implemented. Anything in the GameData class gets automatically saved using EasySave but the simplicity of the loop I went for didn't justify saving anything.
+- Daily rewards
+- overall monetisation
 
 ## What I would do in a real use case :
 - Not import whole asset packs into the project
