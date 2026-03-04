@@ -12,9 +12,6 @@ public class EntityMovementModule : EntityModule
     [SerializeField] protected CharacterController m_characterController;
     [SerializeField] protected Animator m_animator;
     
-    [Header("Settings")]
-    [SerializeField] protected float m_moveSpeed = 5f;
-    
     private bool m_isMoving;
     private bool m_canMove = true;
 
@@ -51,8 +48,8 @@ public class EntityMovementModule : EntityModule
             OnStoppedMoving?.Invoke();
         }
 
-        m_characterController.Move(moveDirection * m_moveSpeed * Time.deltaTime);
-        m_animator.SetFloat("Speed", moveDirection.magnitude * m_moveSpeed);
+        m_characterController.Move(moveDirection * Owner.EntityData.moveSpeed * Time.deltaTime);
+        m_animator.SetFloat("Speed", moveDirection.magnitude * Owner.EntityData.moveSpeed);
         
         if (moveDirection != Vector3.zero)
         {

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c29f3ecefb4564987df19d43b1aa49, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  entityId: skeleton
   displayedName: Skeleton
   entityPoolRef: {fileID: 11400000, guid: 901da77f728960c44bc212ddfe692814, type: 2}
+  maxHealth: 100
+  moveSpeed: 3
+  attackSpeed: 1
+  attackDamage: 15
+  attackRange: 1.5

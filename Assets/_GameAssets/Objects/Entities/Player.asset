@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c29f3ecefb4564987df19d43b1aa49, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  entityId: player
   displayedName: Player
-  entityPoolRef: {fileID: 11400000, guid: 901da77f728960c44bc212ddfe692814, type: 2}
+  entityPoolRef: {fileID: 11400000, guid: be36d0f0d805d7a459c5184e5d7f7036, type: 2}
+  maxHealth: 100
+  moveSpeed: 8
+  attackSpeed: 1.5
+  attackDamage: 25
+  attackRange: 99

@@ -15,6 +15,7 @@ public class EntityHealthModule : EntityModule
     [Header("References")]
     [SerializeField] private Animator m_animator;
     [SerializeField] private ParticleSystemPoolRef m_deathFxPoolRef;
+    [SerializeField] private FloatingTextConfig m_floatingTextConfig;
     
     [Header("Health Settings")]
     [SerializeField, Min(1f)] private float maxHealth = 100f;
@@ -165,7 +166,7 @@ public class EntityHealthModule : EntityModule
         FloatingTextManager.Instance.SpawnUIText(
             CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(4)),
             delta.ToString(),
-            GameConfig.Instance.m_normalDamageTextConfig);
+            m_floatingTextConfig);
 
         UpdateHealthBar();
         PlayDamageFeedback();

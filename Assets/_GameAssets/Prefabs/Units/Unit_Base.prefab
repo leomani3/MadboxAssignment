@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animator: {fileID: 0}
   m_deathFxPoolRef: {fileID: 11400000, guid: 52f72ddaaa3b5e842ae9d76c59a99899, type: 2}
+  m_floatingTextConfig: {fileID: 11400000, guid: cdb3af6339353804b9d16b0b6b4fe187, type: 2}
   maxHealth: 100
   healthBarPoolRef: {fileID: 11400000, guid: 4d0c4c34a88d683439e6a8ee94459ab5, type: 2}
   healthBarOffset: {x: 0, y: 4, z: 0}

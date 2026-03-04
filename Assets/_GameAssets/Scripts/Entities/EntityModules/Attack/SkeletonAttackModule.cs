@@ -11,6 +11,6 @@ public class SkeletonAttackModule : EntityAttackModule
     protected override void PerformAttack()
     {
         base.PerformAttack();   // stamps the cooldown timer
-        DealDamage(m_currentTarget, attackDamage);
+        DealDamage(m_currentTarget, Owner.EntityData.attackDamage);
     }
 }

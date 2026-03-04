@@ -21,8 +21,4 @@ public class GameConfig : ScriptableObject
     }
 
     //-------------------------------------
-    
-    public FloatingTextConfig m_normalDamageTextConfig;
-    public FloatingTextConfig m_critDamageTextConfig;
-    public FloatingTextConfig m_healTextConfig;
 }

@@ -323,6 +323,10 @@ PrefabInstance:
       propertyPath: m_animator
       value: 
       objectReference: {fileID: 3007664624361777730}
+    - target: {fileID: 5541402139307812785, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
+      propertyPath: m_floatingTextConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d8dcf21e34201945889e14172dea3ae, type: 2}
     - target: {fileID: 6256840304806217354, guid: 4f8a42f4c85524745a31440abbfb2266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -400,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8530aa785c6c6e4c8d4cb70f6c7b9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 100
+  attackDamage: 20
   attackSpeed: 2
   attackRange: 99
   m_currentTarget: {fileID: 0}

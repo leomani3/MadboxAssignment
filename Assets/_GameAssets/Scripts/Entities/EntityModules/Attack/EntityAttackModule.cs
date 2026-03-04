@@ -3,18 +3,14 @@ using UnityEngine;
 
 public class EntityAttackModule : EntityModule
 {
-    [Header("Attack Settings")]
-    [SerializeField] protected float attackDamage = 10f;
-    [SerializeField] protected float attackSpeed = 1f; 
-    [SerializeField] protected float attackRange = 1f;
-
     [SerializeField, ReadOnly] protected Entity m_currentTarget;
 
     protected bool m_canAttack;
     protected float m_attackCooldownTimer;
 
+    private EntityData EntityData => Owner.EntityData;
     protected bool IsAttackReady => m_attackCooldownTimer <= 0f;
-    protected float AttackInterval => attackSpeed > 0f ? 1f / attackSpeed : float.MaxValue;
+    protected float AttackInterval => EntityData.attackSpeed > 0f ? 1f / EntityData.attackSpeed : float.MaxValue;
 
     protected override void OnInitialize()
     {
@@ -81,7 +77,7 @@ public class EntityAttackModule : EntityModule
     protected bool IsInRange(Entity target)
     {
         float distSqr = (target.transform.position - Owner.transform.position).sqrMagnitude;
-        return distSqr <= attackRange * attackRange;
+        return distSqr <= EntityData.attackRange * EntityData.attackRange;
     }
     
     protected virtual void TryAttack()

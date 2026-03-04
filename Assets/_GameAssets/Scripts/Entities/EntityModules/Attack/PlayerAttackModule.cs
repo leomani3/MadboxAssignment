@@ -80,7 +80,7 @@ public class PlayerAttackModule : EntityAttackModule
         if (m_currentTarget != null)
         {
             Projectile _spawnedProjectile = m_projectilePoolRef.pool.Spawn(m_projectileSpawnPoint.position, m_projectileSpawnPoint.rotation);
-            _spawnedProjectile.Launch(m_projectilePoolRef.pool, m_currentTarget.transform.position, attackDamage); 
+            _spawnedProjectile.Launch(m_projectilePoolRef.pool, m_currentTarget.transform.position, Owner.EntityData.attackDamage); 
         }
         
         m_animator?.SetBool("Attack", false);
