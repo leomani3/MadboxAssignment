@@ -4,6 +4,7 @@
 
 As discussed during the interviews my strength are in 3C, juiciness and gameplay so i'm focusing on reflecting those as much as possible.
 I spent 3 days on this assignment.
+Gameplay video : https://www.youtube.com/shorts/pumtQpsrpgw
 
 ## What's been done :
 ### Architecture
