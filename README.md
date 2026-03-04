@@ -29,7 +29,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 ## To go further :
 - Stats System : for now stats are represented by float values in EntityData but the goal should be to implement a StatSystem Following the EntityModule architecture and create a EntityStatModule that would handle base stats as well as stat modifications at run time.
 - New playable characters : mage, knight, etc... (could be tied to a gatcha deck building system)
-- Real implementation of the choice popup : pick 1 of 3 bonuses (tied to the stat system)
+- Real implementation of the choice popup : pick 1 of 3 bonuses (tied to the stat system. Fake for now)
 - Real UI system
 - UI : ui element animations, Wave UI, etc...
 - AI different behaviours : extend on the existing EntityModule architecture to define new behaviours (distance enemy, charge enemy, etc...)
@@ -43,7 +43,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 - Not import whole asset packs into the project
 - Look into and optimise asset import settings
 - Some Singletons are a bit more rigid than they could be.
-- Use of Addressables 
+- Use of Addressables
 
 ## External packages used :
 - Ultimate Joystick : https://assetstore.unity.com/packages/p/ultimate-joystick-27695
