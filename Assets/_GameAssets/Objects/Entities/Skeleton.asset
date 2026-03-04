@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayedName: Skeleton
   entityPoolRef: {fileID: 11400000, guid: 901da77f728960c44bc212ddfe692814, type: 2}
-  maxHealth: 100
+  maxHealth: 75
   moveSpeed: 2.5
   attackSpeed: 1
   attackDamage: 15
