@@ -76,7 +76,7 @@ public class EntityManager : Singleton<EntityManager>
 
         foreach (Entity entity in m_entities)
         {
-            if (!entity.CanBeTargeted) break;
+            if (!entity.CanBeTargeted) continue;
             
             if (entity != sourceEntity && entity.IsEnemy(sourceEntity))
             {
