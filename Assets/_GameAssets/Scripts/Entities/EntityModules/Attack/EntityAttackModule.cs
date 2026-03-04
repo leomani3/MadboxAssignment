@@ -97,7 +97,7 @@ public class EntityAttackModule : EntityModule
     {
         if (target == null) return;
         
-        bool isCrit = Random.value > Owner.EntityData.critChance;
+        bool isCrit = Random.value < Owner.EntityData.critChance;
 
         if (isCrit)
         {
