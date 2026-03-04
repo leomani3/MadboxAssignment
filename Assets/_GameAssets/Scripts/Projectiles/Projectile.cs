@@ -42,14 +42,6 @@ public class Projectile : MonoBehaviour
         if ((collisionMask & (1 << collision.gameObject.layer)) == 0)
             return;
 
-        // if (EntityManager.Instance.EntitiesByCollider.TryGetValue(collision.collider, out Entity entity))
-        // {
-        //     if (entity.TryGetModule(out EntityHealthModule healthModule))
-        //     {
-        //         healthModule.TakeDamage(m_damage);
-        //     }
-        // }
-
         m_onCollisionCallback?.Invoke();
 
         ContactPoint contact = collision.GetContact(0);
@@ -65,7 +57,6 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(rb.velocity);
 
         m_onCollisionCallback = onCollisionCallback;
-        //m_damage = damage;
 
         SpawnMuzzleFlash();
     }

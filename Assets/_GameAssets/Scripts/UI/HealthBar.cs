@@ -269,7 +269,7 @@ public class HealthBar : MonoBehaviour, IPoolable
     private void UpdateLabel(float current, float max)
     {
         if (!showText || label == null) return;
-        label.text = current.ToString();
+        label.text = current.ToString("N0");
     }
     private void ShowGauge()
     {

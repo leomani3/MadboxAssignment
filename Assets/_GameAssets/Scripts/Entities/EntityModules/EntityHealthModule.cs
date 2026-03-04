@@ -19,7 +19,7 @@ public class EntityHealthModule : EntityModule
 
     [Header("Health Bar")]
     [SerializeField] private HealthBarPoolRef m_healthBarPoolRef;
-    [SerializeField] private Vector3 healthBarOffset = new Vector3(0f, 2f, 0f);
+    [SerializeField] private Transform m_healthBarTarget;
 
     [Header("Damage Feedback – Punch Scale")]
     [SerializeField] private Vector3 punchScale = new Vector3(0.3f, -0.2f, 0f);
@@ -67,8 +67,7 @@ public class EntityHealthModule : EntityModule
         Transform canvasTransform = UIManager.Instance.GameCanvas.transform;
         m_healthBar = m_healthBarPoolRef.pool.Spawn(canvasTransform);
         
-        Transform trackTarget = GetOffsetTrackingTransform();
-        m_healthBar.Setup(trackTarget, m_currentHealth, MaxHealth);
+        m_healthBar.Setup(m_healthBarTarget, m_currentHealth, MaxHealth);
     }
 
     private void DespawnHealthBar()
@@ -76,18 +75,6 @@ public class EntityHealthModule : EntityModule
         if (m_healthBar == null) return;
         m_healthBarPoolRef.pool.Despawn(m_healthBar);
         m_healthBar = null;
-    }
-    
-    private Transform GetOffsetTrackingTransform()
-    {
-        const string anchorName = "_HealthBarAnchor";
-        Transform existing = Owner.transform.Find(anchorName);
-        if (existing != null) return existing;
-
-        GameObject anchor = new GameObject(anchorName);
-        anchor.transform.SetParent(Owner.transform, worldPositionStays: false);
-        anchor.transform.localPosition = healthBarOffset;
-        return anchor.transform;
     }
 
     private void UpdateHealthBar()
@@ -110,10 +97,10 @@ public class EntityHealthModule : EntityModule
          {
              amountText += "<sprite=\"crit\" name=\"crit\"> ";
          }
-        amountText += amount.ToString();
+        amountText += amount.ToString("N0");
         
         FloatingTextManager.Instance.SpawnUIText(
-            CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(4)),
+            CameraManager.Instance.MainCam.WorldToScreenPoint(m_healthBarTarget.position) + new Vector3(0, 50, 0),
             amountText,
             isCrit ? GameAssets.Instance.critTextConfig : m_floatingTextConfig);
 
@@ -125,21 +112,6 @@ public class EntityHealthModule : EntityModule
 
         if (m_currentHealth <= 0f)
             StartDeathAnimation();
-    }
-
-    [Button]
-    public void Heal(float amount)
-    {
-        if (m_isDead || amount <= 0f) return;
-
-        float previous = m_currentHealth;
-        m_currentHealth = Mathf.Min(MaxHealth, m_currentHealth + amount);
-        float delta = m_currentHealth - previous;
-
-        UpdateHealthBar();
-
-        OnHealed?.Invoke(amount, m_currentHealth);
-        OnHealthChanged?.Invoke(m_currentHealth, MaxHealth, delta);
     }
 
     private void StartDeathAnimation()

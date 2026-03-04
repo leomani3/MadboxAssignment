@@ -19,16 +19,12 @@ public class PlayerAttackModule : EntityAttackModule
     {
         base.OnInitialize();
         UpdateAnimatorSpeed();
-
-        if (Owner.TryGetModule(out PlayerMovementModule playerMovementModule))
-        {
-            playerMovementModule.OnStartedMoving += () => SetCanAttack(false);
-            playerMovementModule.OnStoppedMoving += () => SetCanAttack(true);
-        }
     }
 
-    private void Start()
+    public override void OnAllModuleInitialized()
     {
+        base.OnAllModuleInitialized();
+        
         if (Owner.TryGetModule(out PlayerMovementModule playerMovementModule))
         {
             playerMovementModule.OnStartedMoving += () => SetCanAttack(false);
@@ -67,8 +63,7 @@ public class PlayerAttackModule : EntityAttackModule
             newTarget.SetTargeted(true);
         }
     }
-
-    // Called by the base when conditions are met (cooldown elapsed, target in range, etc.)
+    
     protected override void PerformAttack()
     {
         base.PerformAttack();
@@ -92,8 +87,7 @@ public class PlayerAttackModule : EntityAttackModule
     private void StartAttackAnimation()
     {
         m_animator?.SetBool("Attack", true);
-
-        // Face the target before swinging.
+        
         if (m_currentTarget != null)
             transform.LookAt(m_currentTarget.transform.position.SetY(transform.position.y));
     }
@@ -109,8 +103,7 @@ public class PlayerAttackModule : EntityAttackModule
     {   
         TryAttack();
     }
-
-    // Scales the animator so the Attack clip always plays in exactly (1 / attackSpeed) seconds.
+    
     private void UpdateAnimatorSpeed()
     {
         if (m_animator == null || m_baseAnimationLength <= 0f) return;
@@ -134,6 +127,7 @@ public class PlayerAttackModule : EntityAttackModule
         BakeAttackClipLength();
     }
 
+    [Button]
     private void BakeAttackClipLength()
     {
         if (m_animator == null) return;
@@ -150,8 +144,6 @@ public class PlayerAttackModule : EntityAttackModule
                 return;
             }
         }
-
-        Debug.LogWarning($"[PlayerAttackModule] No state named 'Attack' found in the AnimatorController on '{name}'.");
     }
 
     private float FindClipLengthInStateMachine(AnimatorStateMachine stateMachine, string stateName)

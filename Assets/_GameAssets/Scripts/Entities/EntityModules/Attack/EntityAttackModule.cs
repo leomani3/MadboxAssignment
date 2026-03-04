@@ -80,7 +80,7 @@ public class EntityAttackModule : EntityModule
         return distSqr <= EntityData.attackRange * EntityData.attackRange;
     }
     
-    protected virtual void TryAttack()
+    protected void TryAttack()
     {
         if (!m_canAttack || !IsAttackReady || m_currentTarget == null)
             return;

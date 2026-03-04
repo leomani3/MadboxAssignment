@@ -1,16 +1,14 @@
-using UnityEngine;
-
 public class SkeletonAttackModule : EntityAttackModule
 {
     protected override void Update()
     {
-        base.Update();     // ticks cooldown + finds target
+        base.Update();
         TryAttack();
     }
 
     protected override void PerformAttack()
     {
-        base.PerformAttack();   // stamps the cooldown timer
+        base.PerformAttack();
         DealDamage(m_currentTarget, Owner.EntityData.attackDamage);
     }
 }

@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class XpOrb : MonoBehaviour, IPoolable
 {
-    private LeanXpOrbPool m_pool;
-
-    public void Setup(LeanXpOrbPool pool)
-    {
-        m_pool = pool;
-    }
-
     [Header("Spawn Animation")]
     [SerializeField] private float m_scatterRadius = 1.2f;
 
     [Header("Collect")]
     [SerializeField] private float m_collectDelay = 1.5f;
     [SerializeField] private float m_moveSpeed = 20f;
+    
+    private LeanXpOrbPool m_pool;
 
     private Sequence m_spawnSequence;
     private Coroutine m_collectCoroutine;
     private bool m_isCollecting = false;
+    
+    public void Setup(LeanXpOrbPool pool)
+    {
+        m_pool = pool;
+    }
 
     public void OnSpawn()
     {

@@ -1,5 +1,4 @@
 using System;
-using MyBox;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -14,8 +13,6 @@ public class EntityMovementModule : EntityModule
     
     private bool m_isMoving;
     private bool m_canMove = true;
-
-    public bool IsMoving => m_isMoving;
 
     public bool CanMove
     {
