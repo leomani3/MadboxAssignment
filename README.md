@@ -7,9 +7,9 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 ## What's been done :
 ### Architecture
 - Separation of Logic and Data as much as possible. ex : EntityModule define behaviour while the datas are in EntityData
-- Unit system : following unity's own architecture I implemented a component based unit system. The Entity class is the basis on which behaviour are created by adding EntityModules to it. For performance and easy access, the entity gets and stores all its module on awake.
-- Boostrapper : Single entry point for the project. The project will always start by loading the InitScene before going to the mainScene (our menu scene). This gives me better control over code execution order. All singletons are for sure initialized first.
-- Event-Driven Design : OnDeath, OnDeathStart, OnHealthChanged, OnStartedMoving etc. keep modules decoupled. The health bar, drop module, and unregistration all react to the same events without knowing each other.
+- Unit system : following unity's own architecture I implemented a component based unit system. The Entity class is the basis on which behaviour are created by adding EntityModules to it. For performance and easy access, the entity gets and stores all its modules on awake.
+- Boostrapper : Single entry point for the project. The project will always start by loading the InitScene before going to the mainScene (or menuScene if applicable). This gives me better control over code execution order. All singletons are for sure initialized first.
+- Event-Driven Design : OnDeath, OnHealthChanged, OnStartedMoving etc. keep modules decoupled. The health bar, drop module, and unregistration all react to the same events without knowing each other.
 
 ### Juiciness
 - Floating text : floating damage numbers and critical strike integration (using TMP sprite asset)
@@ -20,8 +20,8 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 
 ### Performance
 - Created a 3D environment that I turned into 2D sprite (like in Archero)
-- Pools : VFXs, Units, projectiles, Some ui elements (like healthbars) are all pooled. My pool system is built on top of LeanPool that I store in reference Scriptable Objects that I then use.
-- Update usage is kept to a minimum (like catching inputs for example) and most of the code is following the Observer pattern and events as a whole.
+- Pools : VFXs, Units, projectiles, Some ui elements (like healthbars) are all pooled. My pool system is built on top of LeanPool.
+- Update() usage is kept to a minimum (like catching inputs for example) and most of the code is following the Observer pattern and events as a whole.
 - GPU instanced materials + optimised shader (ToonyColors) + mobile mode activated
 
 ## To go further :
