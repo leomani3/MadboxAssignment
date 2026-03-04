@@ -3,6 +3,7 @@
 ## Recap :
 
 As discussed during the interviews my strength are in 3C, juiciness and gameplay so i'm focusing on reflecting those as much as possible. I spent 3 days on this assignment. Gameplay video : https://youtube.com/shorts/cD97-QyQbtU
+
 ## What's been done :
 ### Architecture
 - Separation of Logic and Data as much as possible. ex : EntityModule define behaviour while the datas are in EntityData. This separation allow for easy implementation of new enemies for example (one with more health, another one who runs faster, etc...)
