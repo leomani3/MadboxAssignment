@@ -6,10 +6,11 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 
 ## What's been done :
 ### Architecture
-- Separation of Logic and Data as much as possible. ex : EntityModule define behaviour while the datas are in EntityData
-- Unit system : following unity's own architecture I implemented a component based unit system. The Entity class is the basis on which behaviour are created by adding EntityModules to it. For performance and easy access, the entity gets and stores all its modules on awake.
+- Separation of Logic and Data as much as possible. ex : EntityModule define behaviour while the datas are in EntityData. This separation allow for easy implementation of new enemies for example (one with more health, another one who runs faster, etc...)
+- Unit system : following unity's own architecture I implemented a component based unit system. The Entity class is the basis on which behaviour are created by adding EntityModules to it. For performance and easy access, the entity gets and stores all its modules on awake. Every unit also automatically register to the EntityManager which allow for easy access of every Entity in the game.
 - Boostrapper : Single entry point for the project. The project will always start by loading the InitScene before going to the mainScene (or menuScene if applicable). This gives me better control over code execution order. All singletons are for sure initialized first.
 - Event-Driven Design : OnDeath, OnHealthChanged, OnStartedMoving etc. keep modules decoupled. The health bar, drop module, and unregistration all react to the same events without knowing each other.
+- The LevelManager handles the waves of enemies which are defined in LevelData (scriptable objects) and the overall loop.
 
 ### Juiciness
 - Floating text : floating damage numbers and critical strike integration (using TMP sprite asset)
@@ -41,7 +42,7 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 ## What I would do in a real use case :
 - Not import whole asset packs into the project
 - Look into and optimise asset import settings
-- Some Singletons are a bit more rigid than they could be. I would change that
+- Some Singletons are a bit more rigid than they could be.
 - Use of Addressables 
 
 ## External packages used :
