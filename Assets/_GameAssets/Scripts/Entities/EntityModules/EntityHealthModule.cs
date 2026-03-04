@@ -153,7 +153,7 @@ public class EntityHealthModule : EntityModule
     }
 
     [Button]
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, bool isCrit)
     {
         if (m_isDead || amount <= 0f) return;
 
@@ -161,10 +161,17 @@ public class EntityHealthModule : EntityModule
         m_currentHealth = Mathf.Max(0f, m_currentHealth - amount);
         float delta = m_currentHealth - previous;
 
+         string amountText = "";
+         if (isCrit)
+         {
+             amountText += "<sprite=\"crit\" name=\"crit\"> ";
+         }
+        amountText += amount.ToString();
+        
         FloatingTextManager.Instance.SpawnUIText(
             CameraManager.Instance.MainCam.WorldToScreenPoint(transform.position.OffsetY(4)),
-            delta.ToString(),
-            m_floatingTextConfig);
+            amountText,
+            isCrit ? GameAssets.Instance.critTextConfig : m_floatingTextConfig);
 
         UpdateHealthBar();
         PlayDamageFeedback();

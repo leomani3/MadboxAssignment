@@ -12,4 +12,5 @@ public class EntityData : ScriptableObject
     public float attackSpeed;
     public float attackDamage;
     public float attackRange;
+    public float critChance;
 }

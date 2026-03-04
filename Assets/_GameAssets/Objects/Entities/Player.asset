@@ -19,3 +19,4 @@ MonoBehaviour:
   attackSpeed: 3
   attackDamage: 15
   attackRange: 99
+  critChance: 0.1

@@ -1,3 +1,4 @@
+using System;
 using Lean.Pool;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class Projectile : MonoBehaviour
     
     private float spawnTime;
     private LeanProjectilePool m_originPool;
-    private float m_damage;
+    private Action m_onCollisionCallback;
 
     private void OnDisable()
     {
@@ -41,27 +42,30 @@ public class Projectile : MonoBehaviour
         if ((collisionMask & (1 << collision.gameObject.layer)) == 0)
             return;
 
-        if (EntityManager.Instance.EntitiesByCollider.TryGetValue(collision.collider, out Entity entity))
-        {
-            if (entity.TryGetModule(out EntityHealthModule healthModule))
-            {
-                healthModule.TakeDamage(m_damage);
-            }
-        }
+        // if (EntityManager.Instance.EntitiesByCollider.TryGetValue(collision.collider, out Entity entity))
+        // {
+        //     if (entity.TryGetModule(out EntityHealthModule healthModule))
+        //     {
+        //         healthModule.TakeDamage(m_damage);
+        //     }
+        // }
+
+        m_onCollisionCallback?.Invoke();
 
         ContactPoint contact = collision.GetContact(0);
         SpawnImpactVFX(contact.point);
         Despawn();
     }
     
-    public void Launch(LeanProjectilePool originPool, Vector3 targetPos, float damage)
+    public void Launch(LeanProjectilePool originPool, Vector3 targetPos, Action onCollisionCallback)
     {
         m_originPool = originPool;
         spawnTime = Time.time;
         rb.velocity = (targetPos - transform.position).normalized * speed;
         transform.rotation = Quaternion.LookRotation(rb.velocity);
 
-        m_damage = damage;
+        m_onCollisionCallback = onCollisionCallback;
+        //m_damage = damage;
 
         SpawnMuzzleFlash();
     }

@@ -12,10 +12,8 @@ public class FloatingTextConfig : ScriptableObject
     
     [Header("Spawn")]
     public float spawnDuration = 0.2f;
-    //scale in
     public bool enableScaleIn;
     [ShowIf(nameof(enableScaleIn))] public Ease scaleInEase = Ease.OutExpo;
-    //fade in
     public bool enableFadeIn;
     
     [Header("Stay")]
@@ -23,9 +21,7 @@ public class FloatingTextConfig : ScriptableObject
     
     [Header("Despawn")]
     public float despawnDuration = 0.2f;
-    //scale out
     public bool enableScaleOut;
-    //fade out
     public bool enableFadeOut;
     
     [Header("Movement")]

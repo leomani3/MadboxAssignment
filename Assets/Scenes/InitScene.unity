@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1401630599}
     m_Modifications:
+    - target: {fileID: 2818750483747362405, guid: e858a7122bbe8cd43a88efefd4979dee, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4405793131458371995, guid: e858a7122bbe8cd43a88efefd4979dee, type: 3}
       propertyPath: m_Name
       value: FloatingTextManager
@@ -460,7 +464,8 @@ PrefabInstance:
       value: UIManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5952251478123883508, guid: abe17377236374c4c8b63993d988780e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abe17377236374c4c8b63993d988780e, type: 3}

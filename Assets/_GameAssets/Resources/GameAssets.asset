@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameAssets
   m_EditorClassIdentifier: 
   currencyAssets: []
+  critTextConfig: {fileID: 11400000, guid: 8507ff3e4d4f4d14cbc399bf21fab61f, type: 2}

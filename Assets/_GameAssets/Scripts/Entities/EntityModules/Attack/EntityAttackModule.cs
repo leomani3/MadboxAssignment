@@ -95,7 +95,18 @@ public class EntityAttackModule : EntityModule
 
     public void DealDamage(Entity target, float damage)
     {
+        if (target == null) return;
+        
+        bool isCrit = Random.value > Owner.EntityData.critChance;
+
+        if (isCrit)
+        {
+            damage *= 1.5f;
+        }
+
         if (target.TryGetModule(out EntityHealthModule healthModule))
-            healthModule.TakeDamage(damage);
+        {
+            healthModule.TakeDamage(damage, isCrit);
+        }
     }
 }
