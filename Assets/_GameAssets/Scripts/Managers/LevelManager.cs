@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private Entity m_playerPrefab;
+    [SerializeField] private EntityPoolRef m_playerPoolRef;
     [SerializeField] private Transform m_playerSpawnPoint;
     [SerializeField] private BoxCollider m_cameraBoundingBox;
 
@@ -25,15 +25,16 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        m_playerEntity = Instantiate(m_playerPrefab, m_playerSpawnPoint.position, Quaternion.identity, transform);
+        m_playerEntity = m_playerPoolRef.pool.Spawn(m_playerSpawnPoint.position, Quaternion.identity, m_playerPoolRef.pool.transform);
+        m_playerEntity.Setup(m_playerPoolRef.pool);
         if (m_playerEntity.TryGetModule(out EntityHealthModule playerHealthModule))
         {
-            playerHealthModule.OnDeath += OnPlayerDeath;
+            playerHealthModule.OnDeathStart += PlayerDeathStart;
         }
         CameraManager.Instance.Setup(m_playerEntity.transform, m_cameraBoundingBox);
     }
 
-    private void OnPlayerDeath()
+    private void PlayerDeathStart()
     {
         Debug.Log("PLAYER DEAD");
     }
@@ -75,10 +76,11 @@ public class LevelManager : MonoBehaviour
         {
             Vector3 spawnPosition = GetSpawnPosition();
             Entity enemy = wave.enemies[i].EntityData.entityPoolRef.pool.Spawn(spawnPosition, Quaternion.identity, transform);
+            enemy.Setup(wave.enemies[i].EntityData.entityPoolRef.pool);
 
             if (enemy.TryGetModule(out EntityHealthModule healthModule))
             {
-                healthModule.OnDeath += OnEnemyDeath;
+                healthModule.OnDeathStart += EnemyDeathStart;
             }
             else
             {
@@ -92,7 +94,7 @@ public class LevelManager : MonoBehaviour
             SpawnNextWave();
     }
 
-    private void OnEnemyDeath()
+    private void EnemyDeathStart()
     {
         m_aliveEnemyCount--;
         Debug.Log($"Enemy died. {m_aliveEnemyCount} remaining in wave {m_currentWaveIndex + 1}.");

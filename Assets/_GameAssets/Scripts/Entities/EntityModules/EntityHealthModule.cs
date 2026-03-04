@@ -1,19 +1,25 @@
 using System;
-using System.Collections.Generic;
 using MyBox;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Lean.Pool;
 using DG.Tweening;
 
 public class EntityHealthModule : EntityModule
 {
+    public Action<float, float, float> OnHealthChanged;
+    public Action<float, float> OnDamageTaken;
+    public Action<float, float> OnHealed;
+    public Action OnDeathStart;
+    public Action OnDeath;
+    
+    [Header("References")]
+    [SerializeField] private Animator m_animator;
+    
     [Header("Health Settings")]
     [SerializeField, Min(1f)] private float maxHealth = 100f;
 
     [Header("Health Bar")]
     [SerializeField] private HealthBarPoolRef healthBarPoolRef;
-    // World-space offset applied to the entity's position when placing the bar
     [SerializeField] private Vector3 healthBarOffset = new Vector3(0f, 2f, 0f);
 
     [Header("Damage Feedback – Punch Scale")]
@@ -23,14 +29,10 @@ public class EntityHealthModule : EntityModule
     [SerializeField, Range(0f, 1f)] private float punchElasticity = 0.5f;
 
     [Header("Damage Feedback – White Sheen")]
-    // How long the full white flash lasts before fading back
     [SerializeField, Min(0f)] private float sheenHoldDuration = 0.05f;
     [SerializeField, Min(0f)] private float sheenFadeDuration = 0.15f;
 
-    public event Action<float, float, float> OnHealthChanged;
-    public event Action<float, float> OnDamageTaken;
-    public event Action<float, float> OnHealed;
-    public event Action OnDeath;
+
 
     private float m_currentHealth;
     private bool m_isDead;
@@ -199,7 +201,7 @@ public class EntityHealthModule : EntityModule
         OnHealthChanged?.Invoke(m_currentHealth, maxHealth, delta);
 
         if (m_currentHealth <= 0f)
-            Die();
+            StartDeathAnimation();
     }
 
     [Button]
@@ -244,24 +246,27 @@ public class EntityHealthModule : EntityModule
         OnHealthChanged?.Invoke(m_currentHealth, maxHealth, 0f);
     }
 
-    private void Die()
+    private void StartDeathAnimation()
     {
         if (m_isDead) return;
         m_isDead = true;
-
-        // Kill feedback tweens cleanly on death
-        m_punchTween?.Kill(complete: true);
-        m_sheenSequence?.Kill(complete: false);
-
-        Debug.Log($"[EntityHealthModule] '{Owner.name}' has died.");
-        OnDeath?.Invoke();
+        
+        OnDeathStart?.Invoke();
 
         if (m_healthBar != null)
-            m_healthBar.HideGauge(false, () => DespawnHealthBar());
+            m_healthBar.HideGauge(true, () => DespawnHealthBar());
 
-        EntityManager.Instance?.Unregister(Owner);
+        if (m_animator != null)
+        {
+            m_animator.SetTrigger("Die");
+        }
+    }
 
-        //Todo : start anim then despawn via pool
-        // Destroy(Owner.gameObject);
+    public void Die()
+    {
+        m_punchTween?.Kill(complete: true);
+        m_sheenSequence?.Kill(complete: false);
+        
+        OnDeath?.Invoke();
     }
 }

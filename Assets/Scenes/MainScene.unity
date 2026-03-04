@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0a3252dcbd44b4bba1c6c94dfccb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerPrefab: {fileID: 4589378567294561599, guid: 73e05dad209dc5447bdadd5a161f71b9, type: 3}
+  m_playerPoolRef: {fileID: 11400000, guid: be36d0f0d805d7a459c5184e5d7f7036, type: 2}
   m_playerSpawnPoint: {fileID: 574045891}
   m_cameraBoundingBox: {fileID: 1235468328}
   m_levelData: {fileID: 11400000, guid: cc31586883d9d814582649f85c794895, type: 2}

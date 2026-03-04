@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lean.Pool;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -10,6 +11,7 @@ public class Entity : MonoBehaviour
     
     private Dictionary<Type, EntityModule> m_modules = new Dictionary<Type, EntityModule>();
     private bool m_canBeTargeted;
+    private LeanEntityPool m_originPool;
     
     public bool CanBeTargeted
     {
@@ -26,6 +28,11 @@ public class Entity : MonoBehaviour
     
     public EntityData EntityData => entityData;
     public Collider Collider => m_collider;
+
+    public void Setup(LeanEntityPool originPool)
+    {
+        m_originPool = originPool;
+    }
     
     protected virtual void Awake()
     {
@@ -56,6 +63,11 @@ public class Entity : MonoBehaviour
             }
         
             module.Initialize(this);
+        }
+
+        if (TryGetModule(out EntityHealthModule healthModule))
+        {
+            healthModule.OnDeath += DespawnAnUnregister;
         }
     }
     
@@ -91,4 +103,19 @@ public class Entity : MonoBehaviour
     }
     
     public bool HasModule<T>() where T : EntityModule => m_modules.ContainsKey(typeof(T));
+
+    private void DespawnAnUnregister()
+    {
+        if (TryGetModule(out EntityHealthModule healthModule))
+        {
+            healthModule.OnDeath -= DespawnAnUnregister;
+        }
+        
+        if (m_originPool != null)
+        {
+            m_originPool.Despawn(this);
+        }
+        
+        EntityManager.Instance?.Unregister(this);
+    }
 }

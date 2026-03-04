@@ -5,17 +5,20 @@ using MyBox;
 using Sirenix.OdinInspector;
 using TMPro;
 
-public class UIFloatingText : MonoBehaviour
+public class UIFloatingText : MonoBehaviour, IPoolable
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Transform m_parent;
     
     [SerializeField] private FloatingTextConfig m_linkedConfig;
-    private Vector3 m_initialPosition;
     private LeanUIFloatingTextPool m_linkedPool;
-    private Sequence _seq;
     
+    // Stored tweens
+    private Sequence _seq;
+    private Tween _moveYTween;
+    private Tween _moveXTween;
+
     [Button]
     public void Preview()
     {
@@ -44,40 +47,79 @@ public class UIFloatingText : MonoBehaviour
         text.fontSize = m_linkedConfig.fontSize;
     }
 
+    // IPoolable: called when the object is spawned from the pool
+    public void OnSpawn()
+    {
+        Play();
+    }
+
+    // IPoolable: called when the object is despawned back into the pool
+    public void OnDespawn()
+    {
+        KillAllTweens();
+    }
+
+    private void KillAllTweens()
+    {
+        if (_seq != null && _seq.IsActive())
+        {
+            _seq.Kill();
+            _seq = null;
+        }
+
+        if (_moveYTween != null && _moveYTween.IsActive())
+        {
+            _moveYTween.Kill();
+            _moveYTween = null;
+        }
+
+        if (_moveXTween != null && _moveXTween.IsActive())
+        {
+            _moveXTween.Kill();
+            _moveXTween = null;
+        }
+    }
+
     public void Play()
     {
         text.color = text.color.WithAlphaSetTo(m_linkedConfig.enableFadeIn ? 0 : 1);
         m_parent.localScale = m_linkedConfig.enableScaleIn ? Vector3.zero : Vector3.one;
         m_parent.localPosition = Vector3.zero;
 
-        if (_seq != null && _seq.IsPlaying())
-            _seq.Kill();
-        DOTween.Kill(text);
-        DOTween.Kill(m_parent);
+        KillAllTweens();
 
-        _seq = DOTween.Sequence();
-        
-        // ------- Spawn
-        //movement 
-        m_parent.DOLocalMoveY(m_linkedConfig.YOffset, m_linkedConfig.spawnDuration + m_linkedConfig.stayDuration).SetRelative();
+        float totalMoveDuration = m_linkedConfig.spawnDuration + m_linkedConfig.stayDuration;
+
+        // ------- Movement tweens (stored separately, run outside the sequence)
+        _moveYTween = m_parent
+            .DOLocalMoveY(m_linkedConfig.YOffset, totalMoveDuration)
+            .SetRelative();
+
         if (m_linkedConfig.randomXMovement)
-            m_parent.DOLocalMoveX(Random.Range(m_linkedConfig.minMaxXOffset.x, m_linkedConfig.minMaxXOffset.y), m_linkedConfig.spawnDuration + m_linkedConfig.stayDuration).SetRelative();
-        
-        //fade in
+        {
+            _moveXTween = m_parent
+                .DOLocalMoveX(Random.Range(m_linkedConfig.minMaxXOffset.x, m_linkedConfig.minMaxXOffset.y), totalMoveDuration)
+                .SetRelative();
+        }
+
+        // ------- Sequence
+        _seq = DOTween.Sequence();
+
+        // Spawn: fade in
         _seq.Append(text.DOFade(1f, m_linkedConfig.spawnDuration));
-        //scale in
+
+        // Spawn: scale in
         if (m_linkedConfig.enableScaleIn)
             _seq.Join(m_parent.DOScale(1f, m_linkedConfig.spawnDuration).SetEase(m_linkedConfig.scaleInEase));
-        
-        // ------- Stay
+
+        // Stay
         _seq.AppendInterval(m_linkedConfig.stayDuration);
 
-        // ------- Despawn
-        //fade out
-        _seq.AppendInterval(0);
+        // Despawn: fade out
         if (m_linkedConfig.enableFadeOut)
-            _seq.Join(text.DOFade(0f, m_linkedConfig.despawnDuration));
-        //scale out
+            _seq.Append(text.DOFade(0f, m_linkedConfig.despawnDuration));
+
+        // Despawn: scale out
         if (m_linkedConfig.enableScaleOut)
             _seq.Join(m_parent.DOScale(0f, m_linkedConfig.despawnDuration));
 

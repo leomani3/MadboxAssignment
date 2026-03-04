@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1320245573660435702, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
+      propertyPath: m_animator
+      value: 
+      objectReference: {fileID: 2414886746346182089}
+    - target: {fileID: 1320245573660435702, guid: 8b0df0dfc2259284eae53fd301436746, type: 3}
       propertyPath: healthBarOffset.y
       value: 3
       objectReference: {fileID: 0}

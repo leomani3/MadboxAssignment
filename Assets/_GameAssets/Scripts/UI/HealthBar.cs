@@ -287,6 +287,8 @@ public class HealthBar : MonoBehaviour, IPoolable
         if (_instant)
         {
             canvasGroup.alpha = 0;
+            if (onComplete != null)
+                onComplete?.Invoke();
         }
         else
         {

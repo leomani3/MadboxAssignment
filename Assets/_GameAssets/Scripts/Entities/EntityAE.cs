@@ -16,6 +16,28 @@ public class EntityAE : MonoBehaviour
             attackModule.OnAttackPerformed();
         }
     }
+    
+    public void OnDeathAnimationStart()
+    {
+        m_entity.CanBeTargeted = false;
+        if (m_entity.TryGetModule(out EntityMovementModule movementModule))
+        {
+            movementModule.CanMove = false;
+        }
+        
+        if (m_entity.TryGetModule(out EntityAttackModule attackModule))
+        {
+            attackModule.SetCanAttack(false);
+        }
+    }
+    
+    public void OnDeathAnimationEnd()
+    {
+        if (m_entity.TryGetModule(out EntityHealthModule healthModule))
+        {
+            healthModule.Die();
+        }
+    }
 
     public void OnSpawnAnimationStart()
     {
