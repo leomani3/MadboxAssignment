@@ -28,9 +28,9 @@ As discussed during the interviews my strength are in 3C, juiciness and gameplay
 ## To go further :
 - Stats System : for now stats are represented by float values in EntityData but the goal should be to implement a StatSystem Following the EntityModule architecture and create a EntityStatModule that would handle base stats as well as stat modifications at run time.
 - New playable characters : mage, knight, etc... (could be tied to a gatcha deck building system)
-- Choice screen : pick 1 of 3 bonuses
+- Real implementation of the choice popup : pick 1 of 3 bonuses (tied to the stat system)
 - Real UI system
-- UI : animations in end screens, XP bar, Wave UI, etc...
+- UI : ui element animations, Wave UI, etc...
 - AI different behaviours : extend on the existing EntityModule architecture to define new behaviours (distance enemy, charge enemy, etc...)
 - Sounds & music
 - Health packs drop from time to time
